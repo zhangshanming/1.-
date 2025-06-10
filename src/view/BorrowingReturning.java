@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -24,142 +22,129 @@ import database.ConnectDatabase;
 import database.FindBook;
 
 /**
- * 图书借还界面
- *
- * @author K.X
- *
+ * 简约大气版图书借还界面
  */
-
 public class BorrowingReturning {
-	// 分层窗格
 	public JLayeredPane jLayeredPane = new JLayeredPane();
-	// 标签
+
 	private JLabel jLabel = new JLabel("图书借还");
 	private JLabel jLabel2 = new JLabel("请输入书号：");
-	private JLabel jLabel3 = new JLabel("书名：");
+
+	private JLabel jLabel3 = new JLabel("书号：");
 	private JLabel jLabel4 = new JLabel();
-	private JLabel jLabel5 = new JLabel("作者：");
+	private JLabel jLabel5 = new JLabel("书名：");
 	private JLabel jLabel6 = new JLabel();
-	private JLabel jLabel7 = new JLabel("状态：");
+	private JLabel jLabel7 = new JLabel("作者：");
 	private JLabel jLabel8 = new JLabel();
-	private JLabel jLabel9 = new JLabel("书号：");
+	private JLabel jLabel9 = new JLabel("状态：");
 	private JLabel jLabel10 = new JLabel();
 
-	// 文本框
 	private JTextField field = new JTextField(20);
-	// 按钮
 	private JButton button = new JButton("检索");
-	private JButton button2 = new JButton("还书");
-	private JButton button3 = new JButton("借阅");
+	private JButton buttonBorrow = new JButton("借阅");
+	private JButton buttonReturn = new JButton("还书");
 
-	// 面板
-	private JPanel jPanel = new JPanel();
-	// 字体
-	private Font font = new Font("宋体", Font.BOLD, 60);
-	private Font font2 = new Font("宋体", Font.BOLD, 30);
-	private Font font3 = new Font("宋体", Font.BOLD, 26);
+	private JPanel infoPanel = new JPanel();
 
-	// 接收此账号的用户名
+	private Font fontTitle = new Font("微软雅黑", Font.BOLD, 48);
+	private Font fontLabel = new Font("微软雅黑", Font.PLAIN, 20);
+	private Font fontButton = new Font("微软雅黑", Font.PLAIN, 20);
+
 	private String user;
-
-	// 接收图书查询表格，实现实时更新
 	private DefaultTableModel model = new DefaultTableModel();
 	int id;
 
 	public BorrowingReturning() {
-		// 改变背景图片
-		Icon i = new ImageIcon("img\\returning.jpg");
-		JLabel Label = new JLabel(i);
-		Label.setBounds(0, 0, 1200, 800);
+		jLayeredPane.setBackground(new Color(245, 245, 245));
+		jLayeredPane.setOpaque(true);
 
-		// 标签
-		jLabel.setFont(font);
-		jLabel.setBounds(480, 35, 800, 100);
-		jLabel.setForeground(Color.black);
+		// Title
+		jLabel.setFont(fontTitle);
+		jLabel.setBounds(400, 40, 400, 60);
+		jLabel.setForeground(new Color(50, 50, 50));
+		jLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		jLabel2.setFont(font2);
-		jLabel2.setBounds(280, 164, 250, 30);
-		jLabel2.setForeground(Color.black);
+		// Input label
+		jLabel2.setFont(fontLabel);
+		jLabel2.setBounds(300, 130, 150, 30);
+		jLabel2.setForeground(new Color(60, 60, 60));
 
-		// 文本框
-		field.setFont(font2);
-		field.setBackground(Color.white);
-		field.setBounds(480, 164, 250, 30);
-		field.setForeground(Color.black);
+		// Input field
+		field.setFont(fontLabel);
+		field.setBounds(450, 130, 250, 35);
+		field.setForeground(Color.DARK_GRAY);
+		field.setBackground(Color.WHITE);
 
-		// 按钮
-		button.setFont(font2);
-		button.setBounds(780, 160, 100, 40);
-		button.setForeground(Color.black);
-		button.setBackground(Color.lightGray);
+		// Search button
+		button.setFont(fontButton);
+		button.setBounds(730, 130, 100, 35);
+		button.setBackground(new Color(100, 149, 237)); // 淡蓝色
+		button.setForeground(Color.WHITE);
+		button.setFocusPainted(false);
 
-		// 面板
-		jPanel.setBounds(270, 220, 620, 450);
-		jPanel.setBackground(new Color(255, 255, 255, 200)); // Set semi-transparent white background
-		jPanel.setLayout(null);
+		// Info Panel
+		infoPanel.setBounds(250, 200, 700, 400);
+		infoPanel.setBackground(Color.WHITE);
+		infoPanel.setLayout(null);
+		infoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
 
-		// 面板上标签及按钮
-		jLabel3.setFont(font2);
-		jLabel4.setFont(font2);
-		jLabel5.setFont(font2);
-		jLabel6.setFont(font2);
-		jLabel7.setFont(font2);
-		jLabel8.setFont(font2);
-		jLabel9.setFont(font2);
-		jLabel10.setFont(font2);
+		// Labels inside Panel
+		jLabel3.setFont(fontLabel);
+		jLabel4.setFont(fontLabel);
+		jLabel5.setFont(fontLabel);
+		jLabel6.setFont(fontLabel);
+		jLabel7.setFont(fontLabel);
+		jLabel8.setFont(fontLabel);
+		jLabel9.setFont(fontLabel);
+		jLabel10.setFont(fontLabel);
 
-		button2.setFont(font3);
-		button3.setFont(font3);
+		jLabel3.setBounds(50, 40, 100, 30);
+		jLabel4.setBounds(160, 40, 500, 30);
 
-		jLabel3.setForeground(Color.black);
-		jLabel4.setForeground(Color.black);
-		jLabel5.setForeground(Color.black);
-		jLabel6.setForeground(Color.black);
-		jLabel7.setForeground(Color.black);
-		jLabel8.setForeground(Color.black);
-		jLabel9.setForeground(Color.black);
-		jLabel10.setForeground(Color.black);
+		jLabel5.setBounds(50, 90, 100, 30);
+		jLabel6.setBounds(160, 90, 500, 30);
 
-		button2.setForeground(Color.black);
-		button3.setForeground(Color.black);
+		jLabel7.setBounds(50, 140, 100, 30);
+		jLabel8.setBounds(160, 140, 500, 30);
 
-		jLabel9.setBounds(100, 20, 100, 50);
-		jLabel10.setBounds(200, 20, 400, 50);
-		jLabel3.setBounds(100, 90, 100, 50);
-		jLabel4.setBounds(200, 90, 400, 50);
-		jLabel5.setBounds(100, 160, 100, 50);
-		jLabel6.setBounds(200, 160, 400, 50);
-		jLabel7.setBounds(100, 230, 100, 50);
-		jLabel8.setBounds(200, 230, 400, 50);
+		jLabel9.setBounds(50, 190, 100, 30);
+		jLabel10.setBounds(160, 190, 500, 30);
 
-		button2.setBounds(80, 310, 120, 50);
-		button3.setBounds(420, 310, 120, 50);
-		button2.setBackground(Color.lightGray);
-		button3.setBackground(Color.lightGray);
+		// Borrow button
+		buttonBorrow.setFont(fontButton);
+		buttonBorrow.setBounds(120, 300, 150, 45);
+		buttonBorrow.setBackground(new Color(60, 179, 113)); // 绿色
+		buttonBorrow.setForeground(Color.WHITE);
+		buttonBorrow.setFocusPainted(false);
 
-		// 添加事件
+		// Return button
+		buttonReturn.setFont(fontButton);
+		buttonReturn.setBounds(420, 300, 150, 45);
+		buttonReturn.setBackground(new Color(220, 20, 60)); // 红色
+		buttonReturn.setForeground(Color.WHITE);
+		buttonReturn.setFocusPainted(false);
+
+		// Add event handlers
 		addEvent();
 
-		jPanel.add(jLabel3);
-		jPanel.add(jLabel4);
-		jPanel.add(jLabel5);
-		jPanel.add(jLabel6);
-		jPanel.add(jLabel7);
-		jPanel.add(jLabel8);
-		jPanel.add(jLabel9);
-		jPanel.add(jLabel10);
-		jPanel.add(button2);
-		jPanel.add(button3);
+		// Add components to panel
+		infoPanel.add(jLabel3);
+		infoPanel.add(jLabel4);
+		infoPanel.add(jLabel5);
+		infoPanel.add(jLabel6);
+		infoPanel.add(jLabel7);
+		infoPanel.add(jLabel8);
+		infoPanel.add(jLabel9);
+		infoPanel.add(jLabel10);
+		infoPanel.add(buttonBorrow);
+		infoPanel.add(buttonReturn);
 
-		jPanel.setOpaque(false);
-
-		// 加入分层窗口
-		jLayeredPane.add(Label, new Integer(0), 0);
-		jLayeredPane.add(jLabel, new Integer(100), 1);
-		jLayeredPane.add(jLabel2, new Integer(100), 2);
-		jLayeredPane.add(field, new Integer(100), 3);
-		jLayeredPane.add(button, new Integer(100), 4);
-		jLayeredPane.add(jPanel, new Integer(100), 5);
+		// Add all to layeredPane
+		jLayeredPane.add(jLabel, new Integer(100));
+		jLayeredPane.add(jLabel2, new Integer(100));
+		jLayeredPane.add(field, new Integer(100));
+		jLayeredPane.add(button, new Integer(100));
+		jLayeredPane.add(infoPanel, new Integer(100));
 	}
 
 	public void setUser(String user) {
@@ -171,13 +156,9 @@ public class BorrowingReturning {
 	}
 
 	private void addEvent() {
-		// 添加检索按钮事件
 		button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
 				try {
 					id = Integer.parseInt(field.getText().trim());
 					field.setText("");
@@ -185,78 +166,67 @@ public class BorrowingReturning {
 					PreparedStatement preSql;
 					ResultSet rs;
 					String sqlStr = "select * from booktable where bookid = ?";
-					try {
-						preSql = con.prepareStatement(sqlStr);
-						preSql.setInt(1, id);
-						rs = preSql.executeQuery();
-						boolean flag = false;
-						while (rs.next()) {
-							flag = true;
-							jLabel10.setText(rs.getString(1));
-							jLabel4.setText(rs.getString(3));
-							jLabel6.setText(rs.getString(4));
-							jLabel8.setText(rs.getString(6));
-						}
-						if (!flag) {
-							JOptionPane.showMessageDialog(null, "图书不存在", "警告", JOptionPane.WARNING_MESSAGE);
-							empty();
-						}
-						con.close();
-					} catch (SQLException e1) {
+					preSql = con.prepareStatement(sqlStr);
+					preSql.setInt(1, id);
+					rs = preSql.executeQuery();
+					boolean found = false;
+					while (rs.next()) {
+						found = true;
+						jLabel4.setText(rs.getString(1)); // 书号
+						jLabel6.setText(rs.getString(3)); // 书名
+						jLabel8.setText(rs.getString(4)); // 作者
+						jLabel10.setText(rs.getString(6)); // 状态
 					}
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "输入不正确", "警告", JOptionPane.WARNING_MESSAGE);
+					if (!found) {
+						JOptionPane.showMessageDialog(null, "图书不存在", "提示", JOptionPane.INFORMATION_MESSAGE);
+						empty();
+					}
+					con.close();
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "请输入正确的书号", "错误", JOptionPane.ERROR_MESSAGE);
 					field.setText("");
 				}
-
 			}
 		});
 
-		// 添加借阅按钮事件
-		button3.addActionListener(new ActionListener() {
-
+		buttonBorrow.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-				if (jLabel8.getText().equals("在馆")) {
-					id = Integer.parseInt(jLabel10.getText().trim());
-					BorrowRecords.Borrow(user, id, jLabel4.getText().trim());
-					JOptionPane.showMessageDialog(null, "借阅成功！", "恭喜", JOptionPane.WARNING_MESSAGE);
+				if (jLabel10.getText().equals("在馆")) {
+					id = Integer.parseInt(jLabel4.getText().trim());
+					BorrowRecords.Borrow(user, id, jLabel6.getText().trim());
+					JOptionPane.showMessageDialog(null, "借阅成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 					empty();
 					model.setRowCount(0);
 					FindBook.allbook(model);
-				} else if (jLabel8.getText().equals("外借")) {
-					JOptionPane.showMessageDialog(null, "此书已经借出去了哦！", "警告", JOptionPane.WARNING_MESSAGE);
+				} else if (jLabel10.getText().equals("外借")) {
+					JOptionPane.showMessageDialog(null, "此书已外借！", "提示", JOptionPane.WARNING_MESSAGE);
 					empty();
 				} else {
-					JOptionPane.showMessageDialog(null, "错误！", "警告", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "未检索图书", "提示", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
 
-		// 添加还书按钮事件
-		button2.addActionListener(new ActionListener() {
-
+		buttonReturn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (jLabel8.getText().equals("外借")) {
+				if (jLabel10.getText().equals("外借")) {
 					if (BorrowRecords.comparison(user, id)) {
-						id = Integer.parseInt(jLabel10.getText().trim());
+						id = Integer.parseInt(jLabel4.getText().trim());
 						BorrowRecords.Return(user, id);
-						JOptionPane.showMessageDialog(null, "还书成功");
+						JOptionPane.showMessageDialog(null, "还书成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
 						empty();
 						model.setRowCount(0);
 						FindBook.allbook(model);
 					} else {
-						JOptionPane.showMessageDialog(null, "此书不是您借的哦！", "警告", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "该书不是您借的", "提示", JOptionPane.WARNING_MESSAGE);
 					}
-				} else if (jLabel8.getText().equals("在馆")) {
-					JOptionPane.showMessageDialog(null, "此书在馆哦！", "警告", JOptionPane.WARNING_MESSAGE);
+				} else if (jLabel10.getText().equals("在馆")) {
+					JOptionPane.showMessageDialog(null, "该书已在馆", "提示", JOptionPane.WARNING_MESSAGE);
 					empty();
 				} else {
-					JOptionPane.showMessageDialog(null, "错误！", "警告", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "未检索图书", "提示", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -268,5 +238,4 @@ public class BorrowingReturning {
 		jLabel8.setText("");
 		jLabel10.setText("");
 	}
-
 }
