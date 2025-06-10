@@ -27,32 +27,32 @@ import database.FindBook;
 
 public class BookSearch {
 	public JLayeredPane jLayeredPane = new JLayeredPane();
-	private JLabel jLabel = new JLabel("图书查询");
-	private JLabel jLabel2 = new JLabel("请选择查询方式：");
+	private JLabel jLabel = new JLabel(" 图书查询");
+	private JLabel jLabel2 = new JLabel("查询方式");
 	private JTextField field = new JTextField(25);
 	private Dimension dimension = new Dimension(220, 30);
 	private JComboBox<String> box = new JComboBox<String>();
 	private JButton button = new JButton("搜索");
 	public DefaultTableModel model = new DefaultTableModel();
-	private Font font = new Font("微软雅黑", Font.BOLD, 50);
-	private Font font1 = new Font("微软雅黑", Font.BOLD, 25);
-	private Font font2 = new Font("微软雅黑", Font.PLAIN, 20);
+	private Font font = new Font("微软雅黑", Font.BOLD, 45);
+	private Font font1 = new Font("微软雅黑", Font.BOLD, 22);
+	private Font font2 = new Font("微软雅黑", Font.PLAIN, 18);
 	private String s;
 	private String book;
 	private int id;
 
 	public BookSearch() {
-		jLayeredPane.setBackground(new Color(240, 248, 255));
+		jLayeredPane.setBackground(new Color(245, 248, 250));
 		jLayeredPane.setOpaque(true);
 
 		jLabel.setFont(font);
-		jLabel.setBounds(485, 35, 800, 100);
-		jLabel.setForeground(new Color(70, 130, 180));
+		jLabel.setBounds(400, 30, 500, 80);
+		jLabel.setForeground(new Color(55, 95, 150));
 		jLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		jLabel2.setFont(font1);
 		jLabel2.setBounds(180, 130, 250, 30);
-		jLabel2.setForeground(new Color(70, 130, 180));
+		jLabel2.setForeground(new Color(80, 100, 120));
 
 		box.setSize(dimension);
 		box.addItem("按照类别查找");
@@ -61,22 +61,24 @@ public class BookSearch {
 		box.addItem("按照书号查找");
 		box.setFont(font2);
 		box.setBounds(180, 170, 220, 40);
-		box.setForeground(new Color(70, 130, 180));
-		box.setBackground(new Color(255, 250, 250));
+		box.setForeground(new Color(60, 75, 95));
+		box.setBackground(Color.WHITE);
 		box.setOpaque(true);
+		box.setBorder(BorderFactory.createLineBorder(new Color(180, 200, 220), 1));
 
 		field.setFont(font2);
 		field.setSize(dimension);
-		field.setBounds(480, 173, 250, 35);
-		field.setForeground(new Color(70, 130, 180));
-		field.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+		field.setBounds(460, 173, 280, 35);
+		field.setForeground(new Color(60, 75, 95));
+		field.setBorder(BorderFactory.createLineBorder(new Color(180, 200, 220), 1));
 
 		button.setFont(font1);
-		button.setBounds(850, 170, 100, 40);
-		button.setForeground(new Color(70, 130, 180));
-		button.setBackground(new Color(255, 250, 250));
+		button.setBounds(800, 170, 130, 40);
+		button.setForeground(Color.WHITE);
+		button.setBackground(new Color(70, 130, 180));
 		button.setOpaque(true);
 		button.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
+		button.setFocusPainted(false);
 
 		model.addColumn("书号");
 		model.addColumn("类别");
@@ -93,15 +95,17 @@ public class BookSearch {
 		FindBook.allbook(model);
 
 		JTableHeader head = jTable.getTableHeader();
-		head.setPreferredSize(new Dimension(head.getWidth(), 30));
-		head.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		head.setForeground(new Color(70, 130, 180));
-		head.setBackground(new Color(255, 250, 250));
+		head.setPreferredSize(new Dimension(head.getWidth(), 35));
+		head.setFont(new Font("微软雅黑", Font.BOLD, 19));
+		head.setForeground(Color.WHITE);
+		head.setBackground(new Color(70, 130, 180));
 
 		jTable.setRowHeight(30);
-		jTable.setFont(new Font("微软雅黑", Font.PLAIN, 17));
-		jTable.setForeground(new Color(70, 130, 180));
-		jTable.setBackground(new Color(255, 250, 250));
+		jTable.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		jTable.setForeground(new Color(50, 60, 70));
+		jTable.setBackground(Color.WHITE);
+		jTable.setGridColor(new Color(220, 220, 220));
+
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		jTable.setDefaultRenderer(Object.class, renderer);
@@ -130,16 +134,11 @@ public class BookSearch {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 获取搜索类型
 				String searchType = s;
 				String inputText = field.getText().trim();
-
-				// 清空模型
 				model.setRowCount(0);
 
-				// 根据不同类型处理
 				if (searchType.equals("按照类别查找")) {
-					// 输入为空时显示所有图书
 					if (inputText.isEmpty()) {
 						FindBook.allbook(model);
 						return;
@@ -147,15 +146,9 @@ public class BookSearch {
 
 					FindBook.findcategory(model, inputText);
 					if (model.getRowCount() == 0) {
-						JOptionPane.showMessageDialog(null,
-								"未找到相关图书，显示所有图书",
-								"搜索结果",
-								JOptionPane.INFORMATION_MESSAGE);
-						FindBook.allbook(model);
+						showNotFound();
 					}
-				}
-				else if (searchType.equals("按照书名查找")) {
-					// 输入为空时显示所有图书
+				} else if (searchType.equals("按照书名查找")) {
 					if (inputText.isEmpty()) {
 						FindBook.allbook(model);
 						return;
@@ -163,15 +156,9 @@ public class BookSearch {
 
 					FindBook.findbookname(model, inputText);
 					if (model.getRowCount() == 0) {
-						JOptionPane.showMessageDialog(null,
-								"未找到相关图书，显示所有图书",
-								"搜索结果",
-								JOptionPane.INFORMATION_MESSAGE);
-						FindBook.allbook(model);
+						showNotFound();
 					}
-				}
-				else if (searchType.equals("按照作者查找")) {
-					// 输入为空时显示所有图书
+				} else if (searchType.equals("按照作者查找")) {
 					if (inputText.isEmpty()) {
 						FindBook.allbook(model);
 						return;
@@ -179,19 +166,11 @@ public class BookSearch {
 
 					FindBook.findauthor(model, inputText);
 					if (model.getRowCount() == 0) {
-						JOptionPane.showMessageDialog(null,
-								"未找到相关图书，显示所有图书",
-								"搜索结果",
-								JOptionPane.INFORMATION_MESSAGE);
-						FindBook.allbook(model);
+						showNotFound();
 					}
-				}
-				else if (searchType.equals("按照书号查找")) {
+				} else if (searchType.equals("按照书号查找")) {
 					if (inputText.isEmpty()) {
-						JOptionPane.showMessageDialog(null,
-								"请输入书号！",
-								"输入错误",
-								JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "请输入书号！", "输入错误", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 					try {
@@ -199,22 +178,19 @@ public class BookSearch {
 						FindBook.findbookid(model, id);
 
 						if (model.getRowCount() == 0) {
-							JOptionPane.showMessageDialog(null,
-									"未找到相关图书，显示所有图书",
-									"搜索结果",
-									JOptionPane.INFORMATION_MESSAGE);
-							FindBook.allbook(model);
+							showNotFound();
 						}
 					} catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(null,
-								"书号必须是数字！",
-								"输入错误",
-								JOptionPane.ERROR_MESSAGE);
-						// 输入错误时显示所有图书
+						JOptionPane.showMessageDialog(null, "书号必须是数字！", "输入错误", JOptionPane.ERROR_MESSAGE);
 						FindBook.allbook(model);
 					}
 				}
 			}
 		});
+	}
+
+	private void showNotFound() {
+		JOptionPane.showMessageDialog(null, "未找到相关图书，显示所有图书", "搜索结果", JOptionPane.INFORMATION_MESSAGE);
+		FindBook.allbook(model);
 	}
 }
