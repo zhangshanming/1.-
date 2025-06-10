@@ -1,11 +1,5 @@
 package view;
 
-/**
- * 图书查询界面
- * @author K.X
- *
- */
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,17 +10,15 @@ import java.awt.event.ItemListener;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -34,43 +26,25 @@ import javax.swing.table.JTableHeader;
 import database.FindBook;
 
 public class BookSearch {
-	/*
-	 * 一个大标签
-	 *
-	 * 一个下拉框 一个文本框 一个按钮
-	 *
-	 * 一个表格
-	 */
-	// 分层窗格
 	public JLayeredPane jLayeredPane = new JLayeredPane();
-	// 标签
 	private JLabel jLabel = new JLabel("图书查询");
 	private JLabel jLabel2 = new JLabel("请选择查询方式：");
-	// 文本框
 	private JTextField field = new JTextField(25);
-	// 大小
 	private Dimension dimension = new Dimension(220, 30);
-	// 下拉框
 	private JComboBox<String> box = new JComboBox<String>();
-	// 按钮
 	private JButton button = new JButton("搜索");
-	// 表格
 	public DefaultTableModel model = new DefaultTableModel();
-	// 字体
 	private Font font = new Font("微软雅黑", Font.BOLD, 50);
 	private Font font1 = new Font("微软雅黑", Font.BOLD, 25);
 	private Font font2 = new Font("微软雅黑", Font.PLAIN, 20);
-	// 存储下拉选项
 	private String s;
 	private String book;
 	private int id;
 
 	public BookSearch() {
-		// 设置背景颜色
 		jLayeredPane.setBackground(new Color(240, 248, 255));
 		jLayeredPane.setOpaque(true);
 
-		// 标签
 		jLabel.setFont(font);
 		jLabel.setBounds(485, 35, 800, 100);
 		jLabel.setForeground(new Color(70, 130, 180));
@@ -80,7 +54,6 @@ public class BookSearch {
 		jLabel2.setBounds(180, 130, 250, 30);
 		jLabel2.setForeground(new Color(70, 130, 180));
 
-		// 下拉框
 		box.setSize(dimension);
 		box.addItem("按照类别查找");
 		box.addItem("按照书名查找");
@@ -88,18 +61,16 @@ public class BookSearch {
 		box.addItem("按照书号查找");
 		box.setFont(font2);
 		box.setBounds(180, 170, 220, 40);
-		box.setForeground(new Color(70, 130, 180)); // 设置下拉框文字颜色
+		box.setForeground(new Color(70, 130, 180));
 		box.setBackground(new Color(255, 250, 250));
 		box.setOpaque(true);
 
-		// 文本框
 		field.setFont(font2);
 		field.setSize(dimension);
 		field.setBounds(480, 173, 250, 35);
 		field.setForeground(new Color(70, 130, 180));
 		field.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
 
-		// 按钮
 		button.setFont(font1);
 		button.setBounds(850, 170, 100, 40);
 		button.setForeground(new Color(70, 130, 180));
@@ -107,43 +78,36 @@ public class BookSearch {
 		button.setOpaque(true);
 		button.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1));
 
-		// 表格
-		model.addColumn("书号", new Vector<Integer>());
-		model.addColumn("类别", new Vector<Integer>());
-		model.addColumn("书名", new Vector<Integer>());
-		model.addColumn("作者", new Vector<Integer>());
-		model.addColumn("出版社", new Vector<Integer>());
-		model.addColumn("状态", new Vector<Integer>());
+		model.addColumn("书号");
+		model.addColumn("类别");
+		model.addColumn("书名");
+		model.addColumn("作者");
+		model.addColumn("出版社");
+		model.addColumn("状态");
 		JTable jTable = new JTable(model);
 
 		JScrollPane pane = new JScrollPane(jTable);
 		pane.setBounds(180, 250, 800, 400);
 
+		// 初始加载所有图书
 		FindBook.allbook(model);
 
 		JTableHeader head = jTable.getTableHeader();
-		// 设置表头的大小
 		head.setPreferredSize(new Dimension(head.getWidth(), 30));
-		// 设置表头字体大小
 		head.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		head.setForeground(new Color(70, 130, 180)); // 设置表头文字颜色
-		head.setBackground(new Color(255, 250, 250)); // 设置表头背景颜色
+		head.setForeground(new Color(70, 130, 180));
+		head.setBackground(new Color(255, 250, 250));
 
-		// 设置表格的行宽
 		jTable.setRowHeight(30);
-		// 设置表格行中字体大小
 		jTable.setFont(new Font("微软雅黑", Font.PLAIN, 17));
-		jTable.setForeground(new Color(70, 130, 180)); // 设置表格内容文字颜色
-		jTable.setBackground(new Color(255, 250, 250)); // 设置表格内容背景颜色
-		/* 设置表格中的内容居中 */
+		jTable.setForeground(new Color(70, 130, 180));
+		jTable.setBackground(new Color(255, 250, 250));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		jTable.setDefaultRenderer(Object.class, renderer);
 
-		// 添加事件
 		addEvent();
 
-		// 加入分层窗口
 		jLayeredPane.add(jLabel, new Integer(100), 1);
 		jLayeredPane.add(jLabel2, new Integer(100), 2);
 		jLayeredPane.add(box, new Integer(100), 3);
@@ -153,11 +117,8 @@ public class BookSearch {
 	}
 
 	private void addEvent() {
-
-		// 获取下拉列表值
 		s = "按照类别查找";
 		box.addItemListener(new ItemListener() {
-
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -166,29 +127,93 @@ public class BookSearch {
 			}
 		});
 
-		// 添加搜索按钮事件
 		button.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// 获取搜索类型
+				String searchType = s;
+				String inputText = field.getText().trim();
+
+				// 清空模型
 				model.setRowCount(0);
-				if (s.equals("按照类别查找")) {
-					book = field.getText().trim();
-					FindBook.findcategory(model, book);
-				} else if (s.equals("按照书名查找")) {
-					book = field.getText().trim();
-					FindBook.findbookname(model, book);
-				} else if (s.equals("按照作者查找")) {
-					book = field.getText().trim();
-					FindBook.findauthor(model, book);
-				} else if (s.equals("按照书号查找")) {
-					try {
-						id = Integer.parseInt(field.getText().trim());
-						FindBook.findbookid(model, id);
-					} catch (Exception e1) {
+
+				// 根据不同类型处理
+				if (searchType.equals("按照类别查找")) {
+					// 输入为空时显示所有图书
+					if (inputText.isEmpty()) {
+						FindBook.allbook(model);
+						return;
+					}
+
+					FindBook.findcategory(model, inputText);
+					if (model.getRowCount() == 0) {
+						JOptionPane.showMessageDialog(null,
+								"未找到相关图书，显示所有图书",
+								"搜索结果",
+								JOptionPane.INFORMATION_MESSAGE);
+						FindBook.allbook(model);
 					}
 				}
-				field.setText("");
+				else if (searchType.equals("按照书名查找")) {
+					// 输入为空时显示所有图书
+					if (inputText.isEmpty()) {
+						FindBook.allbook(model);
+						return;
+					}
+
+					FindBook.findbookname(model, inputText);
+					if (model.getRowCount() == 0) {
+						JOptionPane.showMessageDialog(null,
+								"未找到相关图书，显示所有图书",
+								"搜索结果",
+								JOptionPane.INFORMATION_MESSAGE);
+						FindBook.allbook(model);
+					}
+				}
+				else if (searchType.equals("按照作者查找")) {
+					// 输入为空时显示所有图书
+					if (inputText.isEmpty()) {
+						FindBook.allbook(model);
+						return;
+					}
+
+					FindBook.findauthor(model, inputText);
+					if (model.getRowCount() == 0) {
+						JOptionPane.showMessageDialog(null,
+								"未找到相关图书，显示所有图书",
+								"搜索结果",
+								JOptionPane.INFORMATION_MESSAGE);
+						FindBook.allbook(model);
+					}
+				}
+				else if (searchType.equals("按照书号查找")) {
+					if (inputText.isEmpty()) {
+						JOptionPane.showMessageDialog(null,
+								"请输入书号！",
+								"输入错误",
+								JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					try {
+						id = Integer.parseInt(inputText);
+						FindBook.findbookid(model, id);
+
+						if (model.getRowCount() == 0) {
+							JOptionPane.showMessageDialog(null,
+									"未找到相关图书，显示所有图书",
+									"搜索结果",
+									JOptionPane.INFORMATION_MESSAGE);
+							FindBook.allbook(model);
+						}
+					} catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null,
+								"书号必须是数字！",
+								"输入错误",
+								JOptionPane.ERROR_MESSAGE);
+						// 输入错误时显示所有图书
+						FindBook.allbook(model);
+					}
+				}
 			}
 		});
 	}

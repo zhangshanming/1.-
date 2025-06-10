@@ -7,7 +7,12 @@ import java.sql.SQLException;
 public class ConnectDatabase {
 
 	public static Connection connectDB() {
-		String url = "jdbc:mysql://localhost:3306/mis?serverTimezone=GMT%2B8";
+		//String url = "jdbc:mysql://localhost:3307/book?serverTimezone=GMT%2B8";
+		//String url = "jdbc:mysql://localhost:3306/mis?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+		//String url = "jdbc:mysql://localhost:3307/book?useSSL=false&verifyServerCertificate=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3307/book?useUnicode=true&characterEncoding=UTF-8&useSSL=false&verifyServerCertificate=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+		// 在ConnectDatabase.java中
+		//String url = "jdbc:mysql://localhost:3307/book?useUnicode=true&characterEncoding=UTF-8";
 		String username = "root";
 		String password = "root";
 		Connection con = null;
