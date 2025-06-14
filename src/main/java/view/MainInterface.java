@@ -1,88 +1,78 @@
 package view;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
-/**
- * 主界面
- * @author K.X
- *
- */
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
 import database.Landing;
 
 public class MainInterface extends JFrame {
-	/*
-	 * 选项卡     主界面       图书查询          图书借还       账号管理
-	 *
-	 */
-	// 选项卡
 	public JTabbedPane jTabbedPane = new JTabbedPane();
-	// 主界面面板
 	private JPanel jPanel = new JPanel();
-	// 标签
 	private JLabel jLabel = new JLabel("欢迎登陆图书管理系统");
-	// 字体
-	private Font font = new Font("宋体", Font.BOLD, 70);
-	private Font font2 = new Font("宋体", Font.BOLD, 20);
-
+	private Font titleFont = new Font("微软雅黑", Font.BOLD, 48);
+	private Font tabFont = new Font("微软雅黑", Font.PLAIN, 18);
 	private Container con = getContentPane();
 
 	public MainInterface(String user) {
+		// 设置窗口图标
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/top.jpg"));
 
-		// 改变窗口图标
-		Toolkit t = Toolkit.getDefaultToolkit();
-		Image image = t.getImage("img\\top.jpg");
-		setIconImage(image);
+		// 背景图设置
+		ImageIcon backgroundIcon = new ImageIcon("img/Main.jpg");
+		JLabel backgroundLabel = new JLabel(backgroundIcon);
+		backgroundLabel.setBounds(0, 0, 1200, 800);
 
-		// 改变背景图片
-		Icon i = new ImageIcon("img\\Main.jpg");
-		JLabel Label = new JLabel(i);
-		Label.setBounds(0, 0, 1200, 800);
+		// 设置透明面板
 		jPanel.setLayout(null);
-		jLabel.setFont(font);
+		jPanel.setOpaque(false); // 使面板透明
 
-		jLabel.setBounds(230, 50, 1000, 200);
-		jLabel.setForeground(Color.black); // 将文字颜色改为黑色
+		// 主标签设置
+		jLabel.setFont(titleFont);
+		jLabel.setForeground(new Color(30, 30, 30));
+		jLabel.setBounds(300, 50, 800, 100);
 		jPanel.add(jLabel);
-		jPanel.add(Label);
 
-		jTabbedPane.setFont(font2);
-		jTabbedPane.add("主 界 面", jPanel);
+		// 添加背景图
+		JPanel bgPanel = new JPanel(null);
+		bgPanel.add(backgroundLabel);
+		backgroundLabel.setBounds(0, 0, 1200, 800);
+
+		bgPanel.add(jPanel);
+		jPanel.setBounds(0, 0, 1200, 800);
+
+		// 设置 Tab 字体 & 边框
+		jTabbedPane.setFont(tabFont);
+		jTabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		// 添加 tab 页面
+		jTabbedPane.addTab("主 界 面", new ImageIcon("img/home.png"), bgPanel);
+
 		BookSearch search = new BookSearch();
-		jTabbedPane.add("图书查询", search.jLayeredPane);
+		jTabbedPane.addTab("图书查询", new ImageIcon("img/search.png"), search.jLayeredPane);
 
 		BorrowingReturning returning = new BorrowingReturning();
 		returning.setUser(user);
 		returning.setModel(search.model);
-		jTabbedPane.add("图书借还", returning.jLayeredPane);
+		jTabbedPane.addTab("图书借还", new ImageIcon("img/borrow.png"), returning.jLayeredPane);
 
 		if (Landing.sureadmin(user)) {
 			Admin admin = new Admin();
 			admin.setUser(user);
 			admin.setFrame(this);
-			jTabbedPane.add("账户管理", admin.jPanel2);
+			jTabbedPane.addTab("账户管理", new ImageIcon("img/user.png"), admin.jPanel2);
 
 			BookAdmin bookAdmin = new BookAdmin();
 			bookAdmin.setModel(search.model);
-			jTabbedPane.add("图书管理", bookAdmin.jPanel2);
-
+			jTabbedPane.addTab("图书管理", new ImageIcon("img/manage.png"), bookAdmin.jPanel2);
 		} else {
 			AccountManagement management = new AccountManagement();
 			management.setUser(user);
 			management.setFrame(this);
-			jTabbedPane.add("账户管理", management.jPanel2);
+			jTabbedPane.addTab("账户管理", new ImageIcon("img/user.png"), management.jPanel2);
 		}
 
 		con.add(jTabbedPane);
-		// 不可以改变窗体的大小
 		setResizable(false);
 		setTitle("图书管理系统");
 		setSize(1200, 800);
