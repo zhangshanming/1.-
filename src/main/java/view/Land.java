@@ -1,193 +1,221 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import database.Landing;
 
 /**
- * 登陆界面
- * 
- * @author K.X
- * 
+ * 现代化登陆界面
  */
-
 public class Land {
+	// 使用更现代的配色方案
+	private static final Color PRIMARY_COLOR = new Color(30, 136, 229);
+	private static final Color SECONDARY_COLOR = new Color(255, 255, 255);
+	private static final Color ACCENT_COLOR = new Color(255, 152, 0);
+	private static final Color BACKGROUND_COLOR = new Color(245, 248, 250);
 
-	/*
-	 * 定义窗体 一个大标签 两个小标签 两个文本框 两个按钮 五个面板
-	 */
-	// 标签
-	private JLabel jLabel = new JLabel("图书管理系统");
-	private JLabel jLabel2 = new JLabel("用户名： ");
-	private JLabel jLabel3 = new JLabel("密  码： ");
-
-	// 字体
-	private Font font = new Font("宋体", Font.BOLD, 40);
-	private Font font2 = new Font("宋体", Font.BOLD, 25);
-	private Font font3 = new Font("宋体", Font.BOLD, 20);
-
-	// 文本框
-	private JTextField field = new JTextField(22);
-	private JPasswordField field2 = new JPasswordField(22);
-
-	// 按钮
-	private JButton button = new JButton("登陆");
-	private JButton button2 = new JButton("注册");
-
-	// 面板
-	private JPanel jPanel = new JPanel();
-	private JPanel jPanel2 = new JPanel();
-	private JPanel jPanel3 = new JPanel();
-	private JPanel jPanel4 = new JPanel();
-	private JPanel jPanel5 = new JPanel();
-	// 窗体
-	private JFrame frame = new JFrame("登陆");
-	// 大小
-	private Dimension dimension = new Dimension(30, 30);
-	private Dimension dimension2 = new Dimension(100, 50);
-	
-	public String user;
-	private String password;
+	private JFrame frame;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
 
 	public Land() {
-		
-		frame.setTitle("登陆");
-		// 设置大小
-		frame.setSize(550, 500);
-		// 居中
+		createUI();
+	}
+
+	private void createUI() {
+		// 创建主框架
+		frame = new JFrame("图书管理系统");
+		frame.setSize(420, 500);
+		frame.setLayout(new BorderLayout());
 		frame.setLocationRelativeTo(null);
-		// 布局为空
-		frame.setLayout(null);
-
-		// 改变窗口图标
-		Toolkit t = Toolkit.getDefaultToolkit();
-		Image image = t.getImage("img\\top.jpg");
-		frame.setIconImage(image);
-
-		// 添加组件
-		addassembly();
-
-		// 设置透明
-		transparent();
-
-		// 添加事件
-		addEvent();
-
-		// 改变背景图片
-		Icon i = new ImageIcon("img\\land1.jpg");
-		JLabel Label = new JLabel(i);
-		Label.setBounds(0, 0, 550, 500);
-		frame.add(Label);
-
-		// 不可以改变窗体的大小
-		frame.setResizable(false);
-		// 窗口关闭
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// 窗口可见
+
+		// 设置更现代的最小图标
+		ImageIcon icon = new ImageIcon("img/logo.png");
+		frame.setIconImage(icon.getImage());
+
+		// 创建主面板
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.setBackground(BACKGROUND_COLOR);
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 50));
+
+		// 添加标题
+		JLabel titleLabel = new JLabel("欢迎回来");
+		titleLabel.setFont(new Font("Microsoft YaHei", Font.BOLD, 28));
+		titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+		mainPanel.add(titleLabel);
+
+		// 添加副标题
+		JLabel subtitleLabel = new JLabel("请输入您的账号密码");
+		subtitleLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		subtitleLabel.setForeground(new Color(120, 144, 156));
+		subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		subtitleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+		mainPanel.add(subtitleLabel);
+
+		// 创建表单面板
+		JPanel formPanel = new JPanel();
+		formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+		formPanel.setBackground(BACKGROUND_COLOR);
+		formPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+
+		// 用户名输入框
+		JLabel userLabel = new JLabel("用户名");
+		userLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		formPanel.add(userLabel);
+		formPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+
+		usernameField = new JTextField();
+		stylizeTextField(usernameField, "请输入用户名");
+		formPanel.add(usernameField);
+		formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+		// 密码输入框
+		JLabel passLabel = new JLabel("密码");
+		passLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		formPanel.add(passLabel);
+		formPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+
+		passwordField = new JPasswordField();
+		stylizeTextField(passwordField, "请输入密码");
+		formPanel.add(passwordField);
+
+		mainPanel.add(formPanel);
+
+		// 创建按钮面板
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(2, 1, 0, 10));
+		buttonPanel.setBackground(BACKGROUND_COLOR);
+
+		// 登录按钮
+		JButton loginButton = new JButton("登 录");
+		stylizeButton(loginButton, PRIMARY_COLOR);
+		loginButton.addActionListener(this::loginAction);
+
+		// 注册按钮
+		JButton registerButton = new JButton("注 册");
+		stylizeButton(registerButton, SECONDARY_COLOR, PRIMARY_COLOR);
+		registerButton.addActionListener(e -> {
+			frame.dispose();
+			new Register();
+		});
+
+		buttonPanel.add(loginButton);
+		buttonPanel.add(registerButton);
+		mainPanel.add(buttonPanel);
+
+		// 添加忘记密码链接
+		JLabel forgotPassword = new JLabel("<html><u>忘记密码?</u></html>");
+		forgotPassword.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+		forgotPassword.setForeground(new Color(120, 144, 156));
+		forgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+		forgotPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		forgotPassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(frame, "请联系系统管理员重置密码");
+			}
+		});
+		mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		mainPanel.add(forgotPassword);
+
+		frame.add(mainPanel);
 		frame.setVisible(true);
 	}
 
-	private void addassembly() {
-		// 添加字体
-		jLabel.setFont(font);
-		jLabel2.setFont(font2);
-		jLabel3.setFont(font2);
-		button.setFont(font3);
-		button2.setFont(font3);
-		field.setFont(font3);
-		field2.setFont(font3);
-		field.setPreferredSize(dimension);
-		field2.setPreferredSize(dimension);
-		button.setPreferredSize(dimension2);
-		button2.setPreferredSize(dimension2);
-//		button.setBackground(Color.pink);
-//		button2.setBackground(Color.GRAY);
+	// 样式化文本框
+	private void stylizeTextField(JTextField field, String placeholder) {
+		field.setMaximumSize(new Dimension(Short.MAX_VALUE, 45));
+		field.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(207, 216, 220), 1),
+				BorderFactory.createEmptyBorder(10, 15, 10, 15)
+		));
+		field.setFont(new Font("Microsoft YaHei", Font.PLAIN, 14));
+		// 设置占位符文本
+		field.setText(placeholder);
+		field.setForeground(Color.GRAY);
 
-		jPanel.add(jLabel);
-		jPanel2.add(jLabel2);
-		jPanel2.add(field);
-		jPanel3.add(jLabel3);
-		jPanel3.add(field2);
-		jPanel4.add(button);
-		jPanel5.add(button2);
-
-		jPanel.setBounds(0, 60, 550, 80);
-		jPanel2.setBounds(0, 160, 550, 80);
-		jPanel3.setBounds(0, 250, 550, 60);
-		jPanel4.setBounds(100, 325, 150, 80);
-		jPanel5.setBounds(275, 325, 150, 80);
-
-		frame.add(jPanel);
-		frame.add(jPanel2);
-		frame.add(jPanel3);
-		frame.add(jPanel4);
-		frame.add(jPanel5);
-
-	}
-
-	private void transparent() {
-		// 设置透明
-		jLabel.setOpaque(false);
-		jLabel2.setOpaque(false);
-		jLabel3.setOpaque(false);
-		field.setOpaque(false);
-		field2.setOpaque(false);
-		// button.setOpaque(false);
-		// button2.setOpaque(false);
-		jPanel.setOpaque(false);
-		jPanel2.setOpaque(false);
-		jPanel3.setOpaque(false);
-		jPanel4.setOpaque(false);
-		jPanel5.setOpaque(false);
-
-	}
-
-	private void addEvent() {
-
-		button.addActionListener(new ActionListener() {
+		field.addFocusListener(new FocusAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				user = field.getText().trim();
-				password = field2.getText().trim();
-				if(Landing.test(user, password)) {
-//					JOptionPane.showMessageDialog(null, "登陆成功");
-					frame.dispose();
-					new MainInterface(user);
-				}else {
-					empty();
+			public void focusGained(FocusEvent e) {
+				if (field.getText().equals(placeholder)) {
+					field.setText("");
+					field.setForeground(Color.BLACK);
 				}
-					
 			}
-		});
 
-		button2.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//frame.setVisible(false);
-				frame.dispose();
-				new Register();
+			public void focusLost(FocusEvent e) {
+				if (field.getText().isEmpty()) {
+					field.setForeground(Color.GRAY);
+					field.setText(placeholder);
+				}
 			}
 		});
 	}
-	private void empty() {
-		field.setText("");
-		field2.setText("");
+
+	// 样式化按钮 (默认样式)
+	private void stylizeButton(JButton button, Color bgColor) {
+		stylizeButton(button, bgColor, Color.WHITE);
+	}
+
+	// 样式化按钮 (可指定背景和文字颜色)
+	private void stylizeButton(JButton button, Color bgColor, Color textColor) {
+		button.setBackground(bgColor);
+		button.setForeground(textColor);
+		button.setFont(new Font("Microsoft YaHei", Font.BOLD, 14));
+		button.setBorder(BorderFactory.createEmptyBorder(12, 20, 12, 20));
+		button.setFocusPainted(false);
+		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		button.setContentAreaFilled(false);
+		button.setOpaque(true);
+
+		// 添加鼠标悬停效果
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				button.setBackground(bgColor.darker());
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				button.setBackground(bgColor);
+			}
+		});
+	}
+
+	// 登录动作处理
+	private void loginAction(ActionEvent e) {
+		String user = usernameField.getText().trim();
+		String password = new String(passwordField.getPassword()).trim();
+
+		// 检查占位符文本
+		if (user.equals("请输入用户名") || password.equals("请输入密码")) {
+			JOptionPane.showMessageDialog(frame, "请输入有效的用户名和密码");
+			return;
+		}
+
+		if (Landing.test(user, password)) {
+			frame.dispose();
+			new MainInterface(user);
+		} else {
+			JOptionPane.showMessageDialog(frame, "用户名或密码错误", "登录失败", JOptionPane.ERROR_MESSAGE);
+			passwordField.setText("");
+		}
+	}
+
+	public static void main(String[] args) {
+		// 使用系统UI风格使界面更现代
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		// 在主线程中创建UI
+		SwingUtilities.invokeLater(() -> new Land());
 	}
 }
