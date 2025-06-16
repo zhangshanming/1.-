@@ -1,0 +1,5 @@
+database\ConnectDatabaseTest.class
+database\BookTest.class
+view\LandTest.class
+database\LandingTest.class
+view\RegisterTest.class

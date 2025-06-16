@@ -2,22 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 项目基本信息 -->
     <groupId>com.example</groupId>
     <artifactId>library-system</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- 项目属性 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- 添加UTF-8编译选项 -->
+        <argLine>-Dfile.encoding=UTF-8</argLine>
     </properties>
 
-    <!-- 依赖管理 -->
     <dependencies>
         <!-- MySQL JDBC 驱动 -->
         <dependency>
@@ -47,9 +46,16 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- 内存数据库用于测试 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-    <!-- 构建配置 -->
     <build>
         <plugins>
             <!-- 设置Java版本 -->
@@ -60,6 +66,61 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- 添加Jacoco测试覆盖率插件 -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 修复路径问题 -->
+                            <destFile>${project.build.directory}/jacoco.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*GUI.class</exclude>
+                        <exclude>**/view/*.class</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- 添加Surefire测试插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <skipTests>false</skipTests>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!-- 关键修复：处理路径中的特殊字符 -->
+                    <argLine>
+                        -Dfile.encoding=UTF-8
+                        @{argLine}
+                    </argLine>
+                    <!-- 增加超时时间 -->
+                    <forkedProcessTimeoutInSeconds>120</forkedProcessTimeoutInSeconds>
+                    <!-- 禁用并行测试 -->
+                    <parallel>none</parallel>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
             </plugin>
         </plugins>

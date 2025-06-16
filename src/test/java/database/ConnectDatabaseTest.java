@@ -1,11 +1,10 @@
 package database;
 
-import static org.junit.Assert.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.sql.Connection;
+import static org.junit.Assert.*;
 
 public class ConnectDatabaseTest {
     private Connection con;
@@ -16,7 +15,7 @@ public class ConnectDatabaseTest {
     }
 
     @After
-    public void tearDown() throws SQLException {
+    public void tearDown() throws Exception {
         if (con != null && !con.isClosed()) {
             con.close();
         }
@@ -28,7 +27,7 @@ public class ConnectDatabaseTest {
     }
 
     @Test
-    public void testConnectionValid() throws SQLException {
+    public void testConnectionValid() throws Exception {
         assertFalse("连接应为活动状态", con.isClosed());
         assertTrue("连接应有效", con.isValid(2));
     }

@@ -1,3 +1,4 @@
+view\Land$3.class
 view\AccountManagement$1.class
 view\BookAdmin$1.class
 view\Register$1.class
@@ -31,6 +32,7 @@ view\BookAdmin$4.class
 view\BookSearch.class
 view\BookSearch$2.class
 view\Main.class
+view\AccountManagement$5.class
 view\ModifyBook$3.class
 database\ConnectDatabase.class
 view\AdminBorrow$2.class
@@ -50,6 +52,7 @@ view\ModifyCategory$1.class
 view\ModifyInformation.class
 view\ModifyCategory.class
 database\FindBook.class
+view\AccountManagement$RoundedPanel.class
 database\ModifyPassword.class
 view\Admin$7.class
 view\DeleteBook.class
