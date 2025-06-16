@@ -1,20 +1,35 @@
 package database;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
 import java.sql.Connection;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.jupiter.api.Assertions.*;
+import java.sql.SQLException;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ConnectDatabaseTest {
-    @Test
-    public void testConnection() {
-        Connection con = ConnectDatabase.connectDB();
-        assertNotNull(String.valueOf(con), "连接不能为null");
-        try {
-            assertFalse(con.isClosed(), "连接应该是活动的");
-        } catch (Exception e) {
-            fail("连接检查异常: " + e.getMessage());
+    private Connection con;
+
+    @Before
+    public void setUp() {
+        con = ConnectDatabase.connectDB();
+    }
+
+    @After
+    public void tearDown() throws SQLException {
+        if (con != null && !con.isClosed()) {
+            con.close();
         }
+    }
+
+    @Test
+    public void testConnectionNotNull() {
+        assertNotNull("连接对象不应为null", con);
+    }
+
+    @Test
+    public void testConnectionValid() throws SQLException {
+        assertFalse("连接应为活动状态", con.isClosed());
+        assertTrue("连接应有效", con.isValid(2));
     }
 }
