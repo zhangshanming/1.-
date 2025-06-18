@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Admin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">Admin.java</span></div><h1>Admin.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ * 管理员账户界面
+ *
+ * @author K.X
+ *
+ */
+public class Admin {
+	/*
+	 * 标签
+	 *
+	 * 四个按钮 修改账号 修改密码 借书记录 退出程序
+	 *
+	 */
+	// 面板
+<span class="nc" id="L29">	public JPanel jPanel2 = new JPanel();</span>
+	// 标签
+<span class="nc" id="L31">	private JLabel jLabel = new JLabel(&quot;账户管理&quot;);</span>
+	// 按钮
+<span class="nc" id="L33">	private JButton button = new JButton(&quot;修改信息&quot;);</span>
+<span class="nc" id="L34">	private JButton button2 = new JButton(&quot;修改密码&quot;);</span>
+<span class="nc" id="L35">	private JButton button3 = new JButton(&quot;借书记录&quot;);</span>
+<span class="nc" id="L36">	private JButton button4 = new JButton(&quot;退出登陆&quot;);</span>
+<span class="nc" id="L37">	private JButton button5 = new JButton(&quot;账户信息&quot;);</span>
+<span class="nc" id="L38">	private JButton button6 = new JButton(&quot;修改权限&quot;);</span>
+<span class="nc" id="L39">	private JButton button7 = new JButton(&quot;设定密码&quot;);</span>
+	// 字体
+<span class="nc" id="L41">	private Font font = new Font(&quot;宋体&quot;, Font.BOLD, 60);</span>
+<span class="nc" id="L42">	private Font font1 = new Font(&quot;宋体&quot;, Font.BOLD, 25);</span>
+	private String user;
+	private JFrame frame;
+
+<span class="nc" id="L46">	public Admin() {</span>
+		// 改变背景图片
+<span class="nc" id="L48">		Icon i = new ImageIcon(&quot;img\\account.jpg&quot;);</span>
+<span class="nc" id="L49">		JLabel Label = new JLabel(i);</span>
+<span class="nc" id="L50">		Label.setBounds(0, 0, 1200, 800);</span>
+		// 面板布局为空
+<span class="nc" id="L52">		jPanel2.setLayout(null);</span>
+		// 标签
+<span class="nc" id="L54">		jLabel.setFont(font);</span>
+<span class="nc" id="L55">		jLabel.setBounds(460, 50, 800, 70);</span>
+		// 按钮
+<span class="nc" id="L57">		button.setFont(font1);</span>
+<span class="nc" id="L58">		button2.setFont(font1);</span>
+<span class="nc" id="L59">		button3.setFont(font1);</span>
+<span class="nc" id="L60">		button4.setFont(font1);</span>
+<span class="nc" id="L61">		button5.setFont(font1);</span>
+<span class="nc" id="L62">		button6.setFont(font1);</span>
+<span class="nc" id="L63">		button7.setFont(font1);</span>
+<span class="nc" id="L64">		button.setBounds(150, 250, 250, 50);</span>
+<span class="nc" id="L65">		button2.setBounds(150, 310, 250, 50);</span>
+<span class="nc" id="L66">		button3.setBounds(150, 370, 250, 50);</span>
+<span class="nc" id="L67">		button4.setBounds(150, 430, 250, 50);</span>
+<span class="nc" id="L68">		button5.setBounds(420, 250, 250, 50);</span>
+<span class="nc" id="L69">		button6.setBounds(420, 310, 250, 50);</span>
+<span class="nc" id="L70">		button7.setBounds(420, 370, 250, 50);</span>
+
+<span class="nc" id="L72">		button.setBackground(Color.cyan);</span>
+<span class="nc" id="L73">		button2.setBackground(Color.cyan);</span>
+<span class="nc" id="L74">		button3.setBackground(Color.cyan);</span>
+<span class="nc" id="L75">		button4.setBackground(Color.cyan);</span>
+<span class="nc" id="L76">		button5.setBackground(Color.cyan);</span>
+<span class="nc" id="L77">		button6.setBackground(Color.cyan);</span>
+<span class="nc" id="L78">		button7.setBackground(Color.cyan);</span>
+
+		//添加事件
+<span class="nc" id="L81">		add();</span>
+
+<span class="nc" id="L83">		button.setOpaque(false);</span>
+<span class="nc" id="L84">		button2.setOpaque(false);</span>
+<span class="nc" id="L85">		button3.setOpaque(false);</span>
+<span class="nc" id="L86">		button4.setOpaque(false);</span>
+<span class="nc" id="L87">		button5.setOpaque(false);</span>
+<span class="nc" id="L88">		button6.setOpaque(false);</span>
+<span class="nc" id="L89">		button7.setOpaque(false);</span>
+
+<span class="nc" id="L91">		jPanel2.add(button);</span>
+<span class="nc" id="L92">		jPanel2.add(button2);</span>
+<span class="nc" id="L93">		jPanel2.add(button3);</span>
+<span class="nc" id="L94">		jPanel2.add(button4);</span>
+<span class="nc" id="L95">		jPanel2.add(button5);</span>
+<span class="nc" id="L96">		jPanel2.add(button6);</span>
+<span class="nc" id="L97">		jPanel2.add(button7);</span>
+<span class="nc" id="L98">		jPanel2.add(jLabel);</span>
+<span class="nc" id="L99">		jPanel2.add(Label);</span>
+<span class="nc" id="L100">	}</span>
+
+	public void setUser(String user) {
+<span class="nc" id="L103">		this.user = user;</span>
+<span class="nc" id="L104">	}</span>
+
+	public void setFrame(JFrame frame) {
+<span class="nc" id="L107">		this.frame = frame;</span>
+<span class="nc" id="L108">	}</span>
+
+	// 添加事件
+	private void add() {
+		// 修改信息
+<span class="nc" id="L113">		button.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L118">				new ModifyInformation(user);</span>
+<span class="nc" id="L119">			}</span>
+		});
+
+		// 修改密码
+<span class="nc" id="L123">		button2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L128">				ModifyPassword password = new ModifyPassword(user);</span>
+<span class="nc" id="L129">				password.setFrame(frame);</span>
+<span class="nc" id="L130">			}</span>
+		});
+
+		//借书记录
+<span class="nc" id="L134">		button3.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L139">				new AdminBorrow();</span>
+<span class="nc" id="L140">			}</span>
+		});
+
+		//退出登陆
+<span class="nc" id="L144">		button4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L149">				frame.dispose();</span>
+<span class="nc" id="L150">				new Land();</span>
+<span class="nc" id="L151">			}</span>
+		});
+
+		//账户信息
+<span class="nc" id="L155">		button5.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L160">				new AdminAccount();</span>
+<span class="nc" id="L161">			}</span>
+		});
+
+		//修改权限
+<span class="nc" id="L165">		button6.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L170">				new Permissions();</span>
+<span class="nc" id="L171">			}</span>
+		});
+
+		//设定密码
+<span class="nc" id="L175">		button7.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L180">				new AdminSetPass();</span>
+<span class="nc" id="L181">			}</span>
+		});
+<span class="nc" id="L183">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

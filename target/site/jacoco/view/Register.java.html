@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Register.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">Register.java</span></div><h1>Register.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import database.Adduser;
+
+/**
+ * 注册界面
+ * 
+ * @author K.X
+ * 
+ */
+public class Register {
+
+	/*
+	 * 七个标签 五个个文本框 一个按钮 七个面板
+	 */
+	// 标签
+<span class="fc" id="L35">	private JLabel jLabel = new JLabel(&quot;注 册&quot;);</span>
+<span class="fc" id="L36">	private JLabel jLabel2 = new JLabel(&quot;用 户 名：&quot;);</span>
+<span class="fc" id="L37">	private JLabel jLabel3 = new JLabel(&quot; 学  号：&quot;);</span>
+<span class="fc" id="L38">	private JLabel jLabel4 = new JLabel(&quot; 姓  名：&quot;);</span>
+<span class="fc" id="L39">	private JLabel jLabel5 = new JLabel(&quot; 密  码：&quot;);</span>
+<span class="fc" id="L40">	private JLabel jLabel6 = new JLabel(&quot;确认密码:&quot;);</span>
+<span class="fc" id="L41">	private JLabel jLabel7 = new JLabel(&quot;                                       密码长度：6~16位，不能含有空格 &quot;);</span>
+
+	private String user;
+	private String studentid;
+	private String name;
+	private String password;
+	private String password2;
+	// 字体
+<span class="fc" id="L49">	private Font font = new Font(&quot;宋体&quot;, Font.BOLD, 40);</span>
+<span class="fc" id="L50">	private Font font2 = new Font(&quot;宋体&quot;, Font.BOLD, 25);</span>
+<span class="fc" id="L51">	private Font font3 = new Font(&quot;宋体&quot;, Font.BOLD, 20);</span>
+<span class="fc" id="L52">	private Font font4 = new Font(&quot;小篆&quot;, Font.ITALIC, 13);</span>
+<span class="fc" id="L53">	private Font font5 = new Font(&quot;宋体&quot;, Font.BOLD, 17);</span>
+	// 文本框
+<span class="fc" id="L55">	private JTextField field = new JTextField(18);</span>
+<span class="fc" id="L56">	private JTextField field2 = new JTextField(18);</span>
+<span class="fc" id="L57">	private JTextField field3 = new JTextField(18);</span>
+<span class="fc" id="L58">	private JPasswordField field4 = new JPasswordField(18);</span>
+<span class="fc" id="L59">	private JPasswordField field5 = new JPasswordField(18);</span>
+
+	// 按钮
+<span class="fc" id="L62">	private JButton button = new JButton(&quot;注 册&quot;);</span>
+<span class="fc" id="L63">	private JButton button2 = new JButton(&quot;返回&quot;);</span>
+	// 大小
+<span class="fc" id="L65">	private Dimension dimension = new Dimension(350, 40);</span>
+	// 面板
+<span class="fc" id="L67">	private JPanel jPanel = new JPanel();</span>
+<span class="fc" id="L68">	private JPanel jPanel2 = new JPanel();</span>
+<span class="fc" id="L69">	private JPanel jPanel3 = new JPanel();</span>
+<span class="fc" id="L70">	private JPanel jPanel4 = new JPanel();</span>
+<span class="fc" id="L71">	private JPanel jPanel5 = new JPanel();</span>
+<span class="fc" id="L72">	private JPanel jPanel6 = new JPanel();</span>
+<span class="fc" id="L73">	private JPanel jPanel7 = new JPanel();</span>
+
+	// 窗体
+<span class="fc" id="L76">	private JFrame frame = new JFrame(&quot;注册&quot;);</span>
+
+<span class="fc" id="L78">	public Register() {</span>
+		// 窗体大小
+<span class="fc" id="L80">		frame.setSize(450, 600);</span>
+		// 布局为空
+<span class="fc" id="L82">		frame.setLayout(null);</span>
+		// 居中
+<span class="fc" id="L84">		frame.setLocationRelativeTo(null);</span>
+		// 改变窗口图标
+<span class="fc" id="L86">		Toolkit t = Toolkit.getDefaultToolkit();</span>
+<span class="fc" id="L87">		Image image = t.getImage(&quot;img\\top.jpg&quot;);</span>
+<span class="fc" id="L88">		frame.setIconImage(image);</span>
+
+<span class="fc" id="L90">		addassembly();</span>
+
+<span class="fc" id="L92">		transparent();</span>
+
+<span class="fc" id="L94">		addEvent();</span>
+		// 改变背景图片
+<span class="fc" id="L96">		Icon i = new ImageIcon(&quot;img\\register.jpg&quot;);</span>
+<span class="fc" id="L97">		JLabel Label = new JLabel(i);</span>
+<span class="fc" id="L98">		Label.setBounds(0, 0, 450, 600);</span>
+<span class="fc" id="L99">		frame.add(Label);</span>
+		// 不可改变大小
+<span class="fc" id="L101">		frame.setResizable(false);</span>
+		// 窗口关闭
+<span class="fc" id="L103">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+		// 窗口可见
+<span class="fc" id="L105">		frame.setVisible(true);</span>
+<span class="fc" id="L106">	}</span>
+
+	private void addassembly() {
+		// 添加字体
+<span class="fc" id="L110">		jLabel.setFont(font);</span>
+<span class="fc" id="L111">		jLabel2.setFont(font2);</span>
+<span class="fc" id="L112">		jLabel3.setFont(font2);</span>
+<span class="fc" id="L113">		jLabel4.setFont(font2);</span>
+<span class="fc" id="L114">		jLabel5.setFont(font2);</span>
+<span class="fc" id="L115">		jLabel6.setFont(font2);</span>
+<span class="fc" id="L116">		jLabel7.setFont(font4);</span>
+<span class="fc" id="L117">		jLabel7.setForeground(Color.red);</span>
+		
+<span class="fc" id="L119">		jLabel.setBounds(170, 30, 150, 60);</span>
+<span class="fc" id="L120">		button.setFont(font2);</span>
+<span class="fc" id="L121">		field.setFont(font3);</span>
+<span class="fc" id="L122">		field2.setFont(font3);</span>
+<span class="fc" id="L123">		field3.setFont(font3);</span>
+<span class="fc" id="L124">		field4.setFont(font3);</span>
+<span class="fc" id="L125">		field5.setFont(font3);</span>
+<span class="fc" id="L126">		field.setForeground(Color.blue);</span>
+<span class="fc" id="L127">		field2.setForeground(Color.blue);</span>
+<span class="fc" id="L128">		field3.setForeground(Color.blue);</span>
+<span class="fc" id="L129">		field4.setForeground(Color.blue);</span>
+<span class="fc" id="L130">		field5.setForeground(Color.blue);</span>
+		// 按钮设置大小
+<span class="fc" id="L132">		button.setPreferredSize(dimension);</span>
+<span class="fc" id="L133">		button2.setFont(font5);</span>
+<span class="fc" id="L134">		button2.setBounds(2, 2, 70, 30);</span>
+<span class="fc" id="L135">		button2.setBackground(Color.cyan);</span>
+<span class="fc" id="L136">		button2.setOpaque(false);</span>
+		// 加入面板
+<span class="fc" id="L138">		jPanel.add(button2);</span>
+<span class="fc" id="L139">		jPanel.add(jLabel);</span>
+<span class="fc" id="L140">		jPanel2.add(jLabel2);</span>
+<span class="fc" id="L141">		jPanel2.add(field);</span>
+<span class="fc" id="L142">		jPanel3.add(jLabel3);</span>
+<span class="fc" id="L143">		jPanel3.add(field2);</span>
+<span class="fc" id="L144">		jPanel4.add(jLabel4);</span>
+<span class="fc" id="L145">		jPanel4.add(field3);</span>
+<span class="fc" id="L146">		jPanel5.add(jLabel5);</span>
+<span class="fc" id="L147">		jPanel5.add(field4);</span>
+<span class="fc" id="L148">		jPanel5.add(jLabel7);</span>
+<span class="fc" id="L149">		jPanel6.add(jLabel6);</span>
+<span class="fc" id="L150">		jPanel6.add(field5);</span>
+<span class="fc" id="L151">		jPanel7.add(button);</span>
+<span class="fc" id="L152">		jPanel.setLayout(null);</span>
+		// 面板位置
+<span class="fc" id="L154">		jPanel.setBounds(0, 0, 450, 110);</span>
+<span class="fc" id="L155">		jPanel2.setBounds(0, 110, 450, 50);</span>
+<span class="fc" id="L156">		jPanel3.setBounds(0, 180, 450, 50);</span>
+<span class="fc" id="L157">		jPanel4.setBounds(0, 250, 450, 50);</span>
+<span class="fc" id="L158">		jPanel5.setBounds(0, 320, 450, 70);</span>
+<span class="fc" id="L159">		jPanel6.setBounds(0, 390, 450, 50);</span>
+<span class="fc" id="L160">		jPanel7.setBounds(0, 460, 450, 60);</span>
+		// 添加到窗体
+<span class="fc" id="L162">		frame.add(jPanel);</span>
+<span class="fc" id="L163">		frame.add(jPanel2);</span>
+<span class="fc" id="L164">		frame.add(jPanel3);</span>
+<span class="fc" id="L165">		frame.add(jPanel4);</span>
+<span class="fc" id="L166">		frame.add(jPanel5);</span>
+<span class="fc" id="L167">		frame.add(jPanel6);</span>
+<span class="fc" id="L168">		frame.add(jPanel7);</span>
+
+<span class="fc" id="L170">	}</span>
+
+	private void transparent() {
+		// 标签透明
+<span class="fc" id="L174">		jLabel.setOpaque(false);</span>
+<span class="fc" id="L175">		jLabel2.setOpaque(false);</span>
+<span class="fc" id="L176">		jLabel3.setOpaque(false);</span>
+<span class="fc" id="L177">		jLabel4.setOpaque(false);</span>
+<span class="fc" id="L178">		jLabel5.setOpaque(false);</span>
+<span class="fc" id="L179">		jLabel6.setOpaque(false);</span>
+		// 文本框透明
+<span class="fc" id="L181">		field.setOpaque(false);</span>
+<span class="fc" id="L182">		field2.setOpaque(false);</span>
+<span class="fc" id="L183">		field3.setOpaque(false);</span>
+<span class="fc" id="L184">		field4.setOpaque(false);</span>
+<span class="fc" id="L185">		field5.setOpaque(false);</span>
+		// 面板透明
+<span class="fc" id="L187">		jPanel.setOpaque(false);</span>
+<span class="fc" id="L188">		jPanel2.setOpaque(false);</span>
+<span class="fc" id="L189">		jPanel3.setOpaque(false);</span>
+<span class="fc" id="L190">		jPanel4.setOpaque(false);</span>
+<span class="fc" id="L191">		jPanel5.setOpaque(false);</span>
+<span class="fc" id="L192">		jPanel6.setOpaque(false);</span>
+<span class="fc" id="L193">		jPanel6.setOpaque(false);</span>
+<span class="fc" id="L194">		jPanel7.setOpaque(false);</span>
+<span class="fc" id="L195">	}</span>
+
+	private void addEvent() {
+<span class="fc" id="L198">		button.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L202">				user = field.getText().trim();</span>
+<span class="nc" id="L203">				studentid = field2.getText().trim();</span>
+<span class="nc" id="L204">				name = field3.getText().trim();</span>
+<span class="nc" id="L205">				password = field4.getText().trim();</span>
+<span class="nc" id="L206">				password2 = field5.getText().trim();</span>
+<span class="nc bnc" id="L207" title="All 2 branches missed.">				if (user.length() == 0) {</span>
+<span class="nc" id="L208">					JOptionPane.showMessageDialog(null, &quot;用户名不能为空&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L209">					empty();</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">				} else if (studentid.length() == 0) {</span>
+<span class="nc" id="L211">					JOptionPane.showMessageDialog(null, &quot;学号不能为空&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L212">					empty();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">				} else if (name.length() == 0) {</span>
+<span class="nc" id="L214">					JOptionPane.showMessageDialog(null, &quot;姓名不能为空&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L215">					empty();</span>
+<span class="nc bnc" id="L216" title="All 4 branches missed.">				} else if (password.length() &lt; 6 || password.length() &gt; 12) {</span>
+<span class="nc" id="L217">					JOptionPane.showMessageDialog(null, &quot;密码输入不正确&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L218">					empty();</span>
+<span class="nc bnc" id="L219" title="All 2 branches missed.">				} else if (!(password.equals(password2))) {</span>
+<span class="nc" id="L220">					JOptionPane.showMessageDialog(null, &quot;两次输入密码不相同&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L221">					empty();</span>
+				} else {
+<span class="nc bnc" id="L223" title="All 2 branches missed.">					if (Adduser.adduser(user, studentid, name, password)) {</span>
+<span class="nc" id="L224">						JOptionPane.showMessageDialog(null, &quot;注册成功&quot;);</span>
+						//frame.setVisible(false);
+<span class="nc" id="L226">						frame.dispose();</span>
+<span class="nc" id="L227">						new Land();</span>
+					} else {
+<span class="nc" id="L229">						empty();</span>
+					}
+
+				}
+<span class="nc" id="L233">			}</span>
+		});
+		
+<span class="fc" id="L236">		button2.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L241">				frame.dispose();</span>
+<span class="nc" id="L242">				new Land();</span>
+<span class="nc" id="L243">			}</span>
+		});
+<span class="fc" id="L245">	}</span>
+
+	private void empty() {
+<span class="nc" id="L248">		field.setText(&quot;&quot;);</span>
+<span class="nc" id="L249">		field2.setText(&quot;&quot;);</span>
+<span class="nc" id="L250">		field3.setText(&quot;&quot;);</span>
+<span class="nc" id="L251">		field4.setText(&quot;&quot;);</span>
+<span class="nc" id="L252">		field5.setText(&quot;&quot;);</span>
+<span class="nc" id="L253">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

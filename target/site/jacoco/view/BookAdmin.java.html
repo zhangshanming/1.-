@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BookAdmin.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">BookAdmin.java</span></div><h1>BookAdmin.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ * 图书管理界面
+ * 
+ * @author K.X
+ * 
+ */
+public class BookAdmin {
+	/*
+	 * 标签
+	 *
+	 * 五个按钮 添加图书信息 修改图书信息 删除图书信息 添加图书类别 修改图书类别
+	 * 
+	 */
+	// 面板
+<span class="nc" id="L29">	public JPanel jPanel2 = new JPanel();</span>
+	// 标签
+<span class="nc" id="L31">	private JLabel jLabel = new JLabel(&quot;图书管理&quot;);</span>
+	// 按钮
+<span class="nc" id="L33">	private JButton button = new JButton(&quot;添加图书信息&quot;);</span>
+<span class="nc" id="L34">	private JButton button2 = new JButton(&quot;修改图书信息&quot;);</span>
+<span class="nc" id="L35">	private JButton button3 = new JButton(&quot;删除图书信息&quot;);</span>
+<span class="nc" id="L36">	private JButton button4 = new JButton(&quot;添加图书类别&quot;);</span>
+<span class="nc" id="L37">	private JButton button5 = new JButton(&quot;修改图书类别&quot;);</span>
+	// 字体
+<span class="nc" id="L39">	private Font font = new Font(&quot;宋体&quot;, Font.BOLD, 60);</span>
+<span class="nc" id="L40">	private Font font1 = new Font(&quot;宋体&quot;, Font.BOLD, 25);</span>
+	// 表格 用于更新图书搜索界面的表格
+<span class="nc" id="L42">	public DefaultTableModel model = new DefaultTableModel();</span>
+
+<span class="nc" id="L44">	public BookAdmin() {</span>
+		// 改变背景图片
+<span class="nc" id="L46">		Icon i = new ImageIcon(&quot;img\\bookadmin.jpg&quot;);</span>
+<span class="nc" id="L47">		JLabel Label = new JLabel(i);</span>
+<span class="nc" id="L48">		Label.setBounds(0, 0, 1200, 800);</span>
+		// 面板布局为空
+<span class="nc" id="L50">		jPanel2.setLayout(null);</span>
+		// 标签
+<span class="nc" id="L52">		jLabel.setFont(font);</span>
+<span class="nc" id="L53">		jLabel.setBounds(460, 50, 800, 70);</span>
+		// 按钮
+<span class="nc" id="L55">		button.setFont(font1);</span>
+<span class="nc" id="L56">		button2.setFont(font1);</span>
+<span class="nc" id="L57">		button3.setFont(font1);</span>
+<span class="nc" id="L58">		button4.setFont(font1);</span>
+<span class="nc" id="L59">		button5.setFont(font1);</span>
+<span class="nc" id="L60">		button.setBounds(150, 190, 250, 50);</span>
+<span class="nc" id="L61">		button2.setBounds(150, 250, 250, 50);</span>
+<span class="nc" id="L62">		button3.setBounds(150, 310, 250, 50);</span>
+<span class="nc" id="L63">		button4.setBounds(150, 370, 250, 50);</span>
+<span class="nc" id="L64">		button5.setBounds(150, 430, 250, 50);</span>
+
+<span class="nc" id="L66">		button.setBackground(Color.cyan);</span>
+<span class="nc" id="L67">		button2.setBackground(Color.cyan);</span>
+<span class="nc" id="L68">		button3.setBackground(Color.cyan);</span>
+<span class="nc" id="L69">		button4.setBackground(Color.cyan);</span>
+<span class="nc" id="L70">		button5.setBackground(Color.cyan);</span>
+
+<span class="nc" id="L72">		button.setOpaque(false);</span>
+<span class="nc" id="L73">		button2.setOpaque(false);</span>
+<span class="nc" id="L74">		button3.setOpaque(false);</span>
+<span class="nc" id="L75">		button4.setOpaque(false);</span>
+<span class="nc" id="L76">		button5.setOpaque(false);</span>
+		
+		//添加事件
+<span class="nc" id="L79">		add();</span>
+		
+<span class="nc" id="L81">		jPanel2.add(button);</span>
+<span class="nc" id="L82">		jPanel2.add(button2);</span>
+<span class="nc" id="L83">		jPanel2.add(button3);</span>
+<span class="nc" id="L84">		jPanel2.add(button4);</span>
+<span class="nc" id="L85">		jPanel2.add(button5);</span>
+<span class="nc" id="L86">		jPanel2.add(jLabel);</span>
+<span class="nc" id="L87">		jPanel2.add(Label);</span>
+<span class="nc" id="L88">	}</span>
+
+	public void setModel(DefaultTableModel model) {
+<span class="nc" id="L91">		this.model = model;</span>
+<span class="nc" id="L92">	}</span>
+	
+	// 添加事件
+	private void add() {
+		// 添加图书信息
+<span class="nc" id="L97">		button.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L102">				AddBook addBook = new AddBook();</span>
+<span class="nc" id="L103">				addBook.setModel(model);</span>
+<span class="nc" id="L104">			}</span>
+		});
+
+		// 修改图书信息
+<span class="nc" id="L108">		button2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L113">				ModifyBook modifyBook = new ModifyBook();</span>
+<span class="nc" id="L114">				modifyBook.setModel(model);</span>
+<span class="nc" id="L115">			}</span>
+		});
+
+		// 删除图书信息
+<span class="nc" id="L119">		button3.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L124">				DeleteBook deleteBook = new DeleteBook();</span>
+<span class="nc" id="L125">				deleteBook.setModel(model);</span>
+<span class="nc" id="L126">			}</span>
+		});
+
+		// 添加图书类别
+<span class="nc" id="L130">		button4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L135">				new AddCategory();</span>
+<span class="nc" id="L136">			}</span>
+		});
+
+		// 修改图书类别
+<span class="nc" id="L140">		button5.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L145">				new ModifyCategory();</span>
+<span class="nc" id="L146">			}</span>
+		});
+
+<span class="nc" id="L149">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

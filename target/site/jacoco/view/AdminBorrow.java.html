@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminBorrow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">AdminBorrow.java</span></div><h1>AdminBorrow.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Vector;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import database.ConnectDatabase;
+import database.FindBook;
+import database.FindBorrow;
+
+/**
+ * 管理员借书记录页面
+ * 
+ * @author K.X
+ */
+public class AdminBorrow extends JFrame {
+	/*
+	 * 背景图片 表格
+	 * 
+	 * 下拉框 文本框 按钮
+	 */
+	// 面板
+<span class="nc" id="L50">	private JPanel jPanel = new JPanel();</span>
+	// 分层窗格
+<span class="nc" id="L52">	private JLayeredPane jLayeredPane = new JLayeredPane();</span>
+	// 标签
+<span class="nc" id="L54">	private JLabel jLabel = new JLabel(&quot;借书记录&quot;);</span>
+<span class="nc" id="L55">	private JLabel jLabel2 = new JLabel(&quot;请选择查询方式：&quot;);</span>
+	// 文本框
+<span class="nc" id="L57">	private JTextField field = new JTextField(20);</span>
+	// 下拉框
+<span class="nc" id="L59">	private JComboBox&lt;String&gt; box = new JComboBox&lt;String&gt;();</span>
+	// 按钮
+<span class="nc" id="L61">	private JButton button = new JButton(&quot;搜索&quot;);</span>
+	// 字体
+<span class="nc" id="L63">	private Font font = new Font(&quot;宋体&quot;, Font.BOLD, 40);</span>
+<span class="nc" id="L64">	private Font font2 = new Font(&quot;宋体&quot;, Font.BOLD, 20);</span>
+<span class="nc" id="L65">	private Font font3 = new Font(&quot;宋体&quot;, Font.BOLD, 18);</span>
+<span class="nc" id="L66">	private Font font4 = new Font(&quot;宋体&quot;, Font.BOLD, 17);</span>
+	// 表格
+<span class="nc" id="L68">	public DefaultTableModel model = new DefaultTableModel();</span>
+	// 存储下拉选项
+	private String s;
+	private int num;
+
+<span class="nc" id="L73">	public AdminBorrow() {</span>
+		// 改变背景图片
+<span class="nc" id="L75">		Icon i = new ImageIcon(&quot;img\\admintop.jpg&quot;);</span>
+<span class="nc" id="L76">		JLabel Label = new JLabel(i);</span>
+<span class="nc" id="L77">		Label.setBounds(0, 0, 850, 100);</span>
+<span class="nc" id="L78">		setLayout(null);</span>
+<span class="nc" id="L79">		setSize(850, 650);</span>
+<span class="nc" id="L80">		setLocationRelativeTo(null);</span>
+
+<span class="nc" id="L82">		jLabel.setFont(font);</span>
+<span class="nc" id="L83">		jLabel.setBounds(345, 80, 400, 100);</span>
+
+<span class="nc" id="L85">		jLabel2.setFont(font4);</span>
+<span class="nc" id="L86">		jLabel2.setBounds(95, 140, 250, 30);</span>
+
+		// 下拉框
+<span class="nc" id="L89">		box.addItem(&quot;按照用户名查找&quot;);</span>
+<span class="nc" id="L90">		box.addItem(&quot;按照书号查找&quot;);</span>
+<span class="nc" id="L91">		box.setFont(font3);</span>
+<span class="nc" id="L92">		box.setBounds(95, 175, 160, 30);</span>
+		// box.setBackground(Color.cyan);
+<span class="nc" id="L94">		box.setOpaque(false);</span>
+
+		// 文本框
+<span class="nc" id="L97">		field.setFont(font2);</span>
+<span class="nc" id="L98">		field.setBackground(Color.cyan);</span>
+<span class="nc" id="L99">		field.setBounds(325, 175, 200, 30);</span>
+<span class="nc" id="L100">		field.setOpaque(false);</span>
+
+		// 按钮
+<span class="nc" id="L103">		button.setFont(font2);</span>
+<span class="nc" id="L104">		button.setBounds(590, 173, 80, 35);</span>
+<span class="nc" id="L105">		button.setBackground(Color.cyan);</span>
+<span class="nc" id="L106">		button.setOpaque(false);</span>
+
+<span class="nc" id="L108">		jPanel.add(jLabel);</span>
+<span class="nc" id="L109">		jPanel.add(jLabel2);</span>
+<span class="nc" id="L110">		jPanel.add(box);</span>
+<span class="nc" id="L111">		jPanel.add(field);</span>
+<span class="nc" id="L112">		jPanel.add(button);</span>
+		// 表格
+<span class="nc" id="L114">		model.addColumn(&quot;用户名&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L115">		model.addColumn(&quot;书号&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L116">		model.addColumn(&quot;书名&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L117">		model.addColumn(&quot;借书日期&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L118">		model.addColumn(&quot;还书日期&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L119">		model.addColumn(&quot;状态&quot;, new Vector&lt;Integer&gt;());</span>
+<span class="nc" id="L120">		JTable jTable = new JTable(model);</span>
+<span class="nc" id="L121">		JScrollPane pane = new JScrollPane(jTable);</span>
+<span class="nc" id="L122">		pane.setBounds(80, 220, 690, 340);</span>
+<span class="nc" id="L123">		jLayeredPane.add(pane);</span>
+
+		// 所有借书记录
+<span class="nc" id="L126">		FindBorrow.allborrow(model);</span>
+		
+<span class="nc" id="L128">		setTitle(&quot;借书记录&quot;);</span>
+		// 不可以改变窗体的大小
+<span class="nc" id="L130">		setResizable(false);</span>
+		// 添加事件
+<span class="nc" id="L132">		addEvent();</span>
+<span class="nc" id="L133">		JTableHeader head = jTable.getTableHeader();</span>
+		// 设置表头的大小
+<span class="nc" id="L135">		head.setPreferredSize(new Dimension(head.getWidth(), 30));</span>
+		// 设置表头字体大小
+<span class="nc" id="L137">		head.setFont(new Font(&quot;宋体&quot;, Font.BOLD, 20));</span>
+		// head.setForeground(Color.cyan);
+<span class="nc" id="L139">		head.setBackground(Color.cyan);</span>
+		// 设置表格的行宽
+<span class="nc" id="L141">		jTable.setRowHeight(30);</span>
+		// 设置表格行中字体大小
+<span class="nc" id="L143">		jTable.setFont(new Font(&quot;宋体&quot;, Font.ROMAN_BASELINE, 17));</span>
+		/* 设置表格中的内容居中 */
+<span class="nc" id="L145">		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();</span>
+<span class="nc" id="L146">		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);</span>
+<span class="nc" id="L147">		jTable.setDefaultRenderer(Object.class, renderer);</span>
+
+		// jPanel.setBackground(Color.blue);
+<span class="nc" id="L150">		jPanel.setBounds(0, 0, 850, 250);</span>
+<span class="nc" id="L151">		jPanel.setOpaque(false);</span>
+<span class="nc" id="L152">		jPanel.setLayout(null);</span>
+<span class="nc" id="L153">		setContentPane(jLayeredPane);</span>
+<span class="nc" id="L154">		add(jPanel);</span>
+<span class="nc" id="L155">		add(Label);</span>
+<span class="nc" id="L156">		setVisible(true);</span>
+<span class="nc" id="L157">	}</span>
+
+	private void addEvent() {
+
+		// 获取下拉列表值
+<span class="nc" id="L162">		s = &quot;按照用户名查找&quot;;</span>
+<span class="nc" id="L163">		box.addItemListener(new ItemListener() {</span>
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc bnc" id="L168" title="All 2 branches missed.">				if (e.getStateChange() == ItemEvent.SELECTED) {</span>
+<span class="nc" id="L169">					s = (String) e.getItem();</span>
+				}
+<span class="nc" id="L171">			}</span>
+		});
+
+		// 添加搜索按钮事件
+<span class="nc" id="L175">		button.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L180">				model.setRowCount(0);</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">				if (s.equals(&quot;按照用户名查找&quot;)) {</span>
+					try {
+<span class="nc" id="L183">						String user = field.getText().trim();</span>
+<span class="nc" id="L184">						FindBorrow.userborrow(model, user);</span>
+<span class="nc" id="L185">					} catch (Exception e1) {</span>
+<span class="nc" id="L186">					}</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">				} else if (s.equals(&quot;按照书号查找&quot;)) {</span>
+					try {
+<span class="nc" id="L189">						num = Integer.parseInt(field.getText().trim());</span>
+<span class="nc" id="L190">						FindBorrow.bookidborrow(model, num);</span>
+<span class="nc" id="L191">					} catch (Exception e1) {</span>
+<span class="nc" id="L192">					}</span>
+				}
+<span class="nc" id="L194">				field.setText(&quot;&quot;);</span>
+<span class="nc" id="L195">			}</span>
+		});
+<span class="nc" id="L197">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

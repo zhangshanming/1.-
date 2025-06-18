@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddBook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">AddBook.java</span></div><h1>AddBook.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import database.Book;
+import database.FindBook;
+
+/**
+ * 添加图书界面
+ *
+ * @author K.X
+ */
+public class AddBook extends JFrame {
+
+	// 面板
+<span class="nc" id="L34">	private JPanel jPanel = new JPanel();</span>
+	// 标签
+<span class="nc" id="L36">	private JLabel jLabel = new JLabel(&quot;添加图书&quot;);</span>
+<span class="nc" id="L37">	private JLabel jLabel2 = new JLabel(&quot;类  别：&quot;);</span>
+<span class="nc" id="L38">	private JLabel jLabel3 = new JLabel(&quot;书  名：&quot;);</span>
+<span class="nc" id="L39">	private JLabel jLabel4 = new JLabel(&quot;作  者：&quot;);</span>
+<span class="nc" id="L40">	private JLabel jLabel5 = new JLabel(&quot;出版社：&quot;);</span>
+	// 文本框
+<span class="nc" id="L42">	private JTextField field = new JTextField(20);</span>
+<span class="nc" id="L43">	private JTextField field2 = new JTextField(20);</span>
+<span class="nc" id="L44">	private JTextField field3 = new JTextField(20);</span>
+	// 下拉框
+<span class="nc" id="L46">	private JComboBox&lt;String&gt; box = new JComboBox&lt;String&gt;();</span>
+	// 按钮
+<span class="nc" id="L48">	private JButton button = new JButton(&quot;确定&quot;);</span>
+	// 字体
+<span class="nc" id="L50">	private Font font = new Font(&quot;微软雅黑&quot;, Font.BOLD, 40);</span>
+<span class="nc" id="L51">	private Font font2 = new Font(&quot;微软雅黑&quot;, Font.BOLD, 25);</span>
+<span class="nc" id="L52">	private Font font3 = new Font(&quot;微软雅黑&quot;, Font.PLAIN, 20);</span>
+	// 表格   用于更新图书搜索界面的表格
+<span class="nc" id="L54">	public DefaultTableModel model = new DefaultTableModel();</span>
+
+	private String s;
+
+<span class="nc" id="L58">	public AddBook() {</span>
+		// 改变背景图片
+<span class="nc" id="L60">		Icon i = new ImageIcon(&quot;img\\admintop.jpg&quot;);</span>
+<span class="nc" id="L61">		JLabel Label = new JLabel(i);</span>
+<span class="nc" id="L62">		Label.setBounds(0, 0, 580, 100);</span>
+<span class="nc" id="L63">		setLayout(null);</span>
+<span class="nc" id="L64">		setSize(580, 650);</span>
+<span class="nc" id="L65">		setTitle(&quot;添加图书&quot;);</span>
+<span class="nc" id="L66">		setLocationRelativeTo(null);</span>
+
+		// 标签
+<span class="nc" id="L69">		jLabel.setFont(font);</span>
+<span class="nc" id="L70">		jLabel.setBounds(195, 80, 400, 100);</span>
+<span class="nc" id="L71">		jLabel.setForeground(new Color(70, 130, 180));</span>
+
+<span class="nc" id="L73">		jLabel2.setFont(font2);</span>
+<span class="nc" id="L74">		jLabel2.setBounds(125, 200, 250, 30);</span>
+
+<span class="nc" id="L76">		jLabel3.setFont(font2);</span>
+<span class="nc" id="L77">		jLabel3.setBounds(125, 260, 250, 30);</span>
+
+<span class="nc" id="L79">		jLabel4.setFont(font2);</span>
+<span class="nc" id="L80">		jLabel4.setBounds(125, 320, 250, 30);</span>
+
+<span class="nc" id="L82">		jLabel5.setFont(font2);</span>
+<span class="nc" id="L83">		jLabel5.setBounds(125, 380, 250, 30);</span>
+
+		// 下拉框
+<span class="nc" id="L86">		box.addItem(&quot;请选择类别&quot;);</span>
+<span class="nc" id="L87">		Book.findcategory(box);</span>
+<span class="nc" id="L88">		box.setFont(font3);</span>
+<span class="nc" id="L89">		box.setBounds(245, 200, 200, 30);</span>
+<span class="nc" id="L90">		box.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));</span>
+
+		// 文本框
+<span class="nc" id="L93">		field.setFont(font3);</span>
+<span class="nc" id="L94">		field.setBounds(245, 260, 200, 30);</span>
+<span class="nc" id="L95">		field.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));</span>
+
+<span class="nc" id="L97">		field2.setFont(font3);</span>
+<span class="nc" id="L98">		field2.setBounds(245, 320, 200, 30);</span>
+<span class="nc" id="L99">		field2.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));</span>
+
+<span class="nc" id="L101">		field3.setFont(font3);</span>
+<span class="nc" id="L102">		field3.setBounds(245, 380, 200, 30);</span>
+<span class="nc" id="L103">		field3.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));</span>
+
+		// 按钮
+<span class="nc" id="L106">		button.setFont(font2);</span>
+<span class="nc" id="L107">		button.setBounds(120, 455, 325, 45);</span>
+<span class="nc" id="L108">		button.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L109">		button.setForeground(Color.WHITE);</span>
+<span class="nc" id="L110">		button.setBorder(BorderFactory.createEmptyBorder());</span>
+<span class="nc" id="L111">		button.setFocusPainted(false);</span>
+
+		// 添加组件
+<span class="nc" id="L114">		jPanel.add(jLabel);</span>
+<span class="nc" id="L115">		jPanel.add(jLabel2);</span>
+<span class="nc" id="L116">		jPanel.add(jLabel3);</span>
+<span class="nc" id="L117">		jPanel.add(jLabel4);</span>
+<span class="nc" id="L118">		jPanel.add(jLabel5);</span>
+<span class="nc" id="L119">		jPanel.add(box);</span>
+<span class="nc" id="L120">		jPanel.add(field);</span>
+<span class="nc" id="L121">		jPanel.add(field2);</span>
+<span class="nc" id="L122">		jPanel.add(field3);</span>
+<span class="nc" id="L123">		jPanel.add(button);</span>
+
+		// 设置面板
+<span class="nc" id="L126">		jPanel.setBounds(0, 0, 850, 650);</span>
+<span class="nc" id="L127">		jPanel.setOpaque(false);</span>
+<span class="nc" id="L128">		jPanel.setLayout(null);</span>
+<span class="nc" id="L129">		add(jPanel);</span>
+<span class="nc" id="L130">		add(Label);</span>
+
+		// 添加事件
+<span class="nc" id="L133">		addListeners();</span>
+
+		// 设置窗口属性
+<span class="nc" id="L136">		setResizable(false);</span>
+<span class="nc" id="L137">		setVisible(true);</span>
+<span class="nc" id="L138">	}</span>
+
+	public void setModel(DefaultTableModel model) {
+<span class="nc" id="L141">		this.model = model;</span>
+<span class="nc" id="L142">	}</span>
+
+	private void addListeners() {
+		// 获取下拉列表值
+<span class="nc" id="L146">		s = &quot;请选择类别&quot;;</span>
+<span class="nc" id="L147">		box.addItemListener(new ItemListener() {</span>
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+<span class="nc bnc" id="L150" title="All 2 branches missed.">				if(e.getStateChange() == ItemEvent.SELECTED) {</span>
+<span class="nc" id="L151">					s = (String)e.getItem();</span>
+				}
+<span class="nc" id="L153">			}</span>
+		});
+
+		// 添加搜索按钮事件
+<span class="nc" id="L157">		button.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L160">				String bookname = field.getText().trim();</span>
+<span class="nc" id="L161">				String author = field2.getText().trim();</span>
+<span class="nc" id="L162">				String press = field3.getText().trim();</span>
+<span class="nc" id="L163">				Book.addbook(s, bookname, author, press);</span>
+<span class="nc" id="L164">				model.setRowCount(0);</span>
+<span class="nc" id="L165">				FindBook.allbook(model);</span>
+<span class="nc" id="L166">				JOptionPane.showMessageDialog(null, &quot;操作成功&quot;);</span>
+<span class="nc" id="L167">			}</span>
+		});
+<span class="nc" id="L169">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

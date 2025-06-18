@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccountManagement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">AccountManagement.java</span></div><h1>AccountManagement.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+public class AccountManagement {
+<span class="nc" id="L19">	public JPanel jPanel2 = new JPanel();</span>
+<span class="nc" id="L20">	private JLabel titleLabel = new JLabel(&quot;账户管理&quot;);</span>
+<span class="nc" id="L21">	private JButton infoButton = new JButton(&quot;修改信息&quot;);</span>
+<span class="nc" id="L22">	private JButton passwordButton = new JButton(&quot;修改密码&quot;);</span>
+<span class="nc" id="L23">	private JButton recordButton = new JButton(&quot;借书记录&quot;);</span>
+<span class="nc" id="L24">	private JButton logoutButton = new JButton(&quot;退出登陆&quot;);</span>
+
+	// 现代字体
+<span class="nc" id="L27">	private Font titleFont = new Font(&quot;微软雅黑&quot;, Font.BOLD, 48);</span>
+<span class="nc" id="L28">	private Font buttonFont = new Font(&quot;微软雅黑&quot;, Font.BOLD, 24);</span>
+
+	// 配色方案
+<span class="nc" id="L31">	private Color primaryColor = new Color(41, 128, 185);    // 主色调</span>
+<span class="nc" id="L32">	private Color secondaryColor = new Color(52, 152, 219);  // 次色调</span>
+<span class="nc" id="L33">	private Color accentColor = new Color(231, 76, 60);       // 强调色</span>
+<span class="nc" id="L34">	private Color backgroundColor = new Color(245, 245, 245); // 背景色</span>
+<span class="nc" id="L35">	private Color cardColor = Color.WHITE;                    // 卡片颜色</span>
+
+	private String user;
+	private JFrame frame;
+
+<span class="nc" id="L40">	public AccountManagement() {</span>
+		// 设置现代感背景
+<span class="nc" id="L42">		jPanel2.setBackground(backgroundColor);</span>
+<span class="nc" id="L43">		jPanel2.setLayout(null);</span>
+
+		// 创建卡片容器，使其悬浮在背景上
+<span class="nc" id="L46">		RoundedPanel cardPanel = new RoundedPanel();</span>
+<span class="nc" id="L47">		cardPanel.setBackground(cardColor);</span>
+<span class="nc" id="L48">		cardPanel.setBounds(350, 100, 500, 500);</span>
+<span class="nc" id="L49">		cardPanel.setLayout(null);</span>
+<span class="nc" id="L50">		cardPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));</span>
+
+		// 标题样式
+<span class="nc" id="L53">		titleLabel.setFont(titleFont);</span>
+<span class="nc" id="L54">		titleLabel.setForeground(primaryColor);</span>
+<span class="nc" id="L55">		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L56">		titleLabel.setBounds(0, 30, 460, 60);</span>
+<span class="nc" id="L57">		cardPanel.add(titleLabel);</span>
+
+		// 设置按钮样式
+<span class="nc" id="L60">		setupButton(infoButton, primaryColor, 110);</span>
+<span class="nc" id="L61">		setupButton(passwordButton, primaryColor, 190);</span>
+<span class="nc" id="L62">		setupButton(recordButton, primaryColor, 270);</span>
+<span class="nc" id="L63">		setupButton(logoutButton, accentColor, 350);</span>
+
+		// 设置按钮悬停效果
+<span class="nc bnc" id="L66" title="All 2 branches missed.">		for (JButton button : new JButton[]{infoButton, passwordButton, recordButton, logoutButton}) {</span>
+<span class="nc" id="L67">			button.addMouseListener(new java.awt.event.MouseAdapter() {</span>
+				public void mouseEntered(java.awt.event.MouseEvent evt) {
+<span class="nc" id="L69">					button.setBackground(button.getBackground().darker());</span>
+<span class="nc" id="L70">				}</span>
+				public void mouseExited(java.awt.event.MouseEvent evt) {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">					if (button == logoutButton) {</span>
+<span class="nc" id="L73">						button.setBackground(accentColor);</span>
+					} else {
+<span class="nc" id="L75">						button.setBackground(primaryColor);</span>
+					}
+<span class="nc" id="L77">				}</span>
+			});
+		}
+
+		// 添加到卡片面板
+<span class="nc" id="L82">		cardPanel.add(infoButton);</span>
+<span class="nc" id="L83">		cardPanel.add(passwordButton);</span>
+<span class="nc" id="L84">		cardPanel.add(recordButton);</span>
+<span class="nc" id="L85">		cardPanel.add(logoutButton);</span>
+
+<span class="nc" id="L87">		jPanel2.add(cardPanel);</span>
+
+		/*// 添加底部信息
+		JLabel footerLabel = new JLabel(&quot;图书管理系统 | v2.0&quot;);
+		footerLabel.setFont(new Font(&quot;微软雅黑&quot;, Font.PLAIN, 14));
+		footerLabel.setForeground(Color.GRAY);
+		footerLabel.setBounds(500, 630, 200, 30);
+		jPanel2.add(footerLabel);*/
+
+		// 添加事件
+<span class="nc" id="L97">		addEventListeners();</span>
+<span class="nc" id="L98">	}</span>
+
+	// 自定义圆角面板类
+<span class="nc" id="L101">	class RoundedPanel extends JPanel {</span>
+		@Override
+		protected void paintComponent(Graphics g) {
+<span class="nc" id="L104">			super.paintComponent(g);</span>
+<span class="nc" id="L105">			Graphics2D g2d = (Graphics2D) g;</span>
+<span class="nc" id="L106">			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);</span>
+
+			// 绘制背景（含阴影）
+<span class="nc" id="L109">			g2d.setColor(new Color(0, 0, 0, 30));</span>
+<span class="nc" id="L110">			g2d.fillRoundRect(4, 4, getWidth() - 8, getHeight() - 8, 20, 20);</span>
+
+<span class="nc" id="L112">			g2d.setColor(getBackground());</span>
+<span class="nc" id="L113">			g2d.fillRoundRect(0, 0, getWidth() - 4, getHeight() - 4, 20, 20);</span>
+<span class="nc" id="L114">		}</span>
+	}
+
+	// 设置按钮样式
+	private void setupButton(JButton button, Color bgColor, int yPos) {
+<span class="nc" id="L119">		button.setFont(buttonFont);</span>
+<span class="nc" id="L120">		button.setBounds(30, yPos, 400, 50);</span>
+<span class="nc" id="L121">		button.setBackground(bgColor);</span>
+<span class="nc" id="L122">		button.setForeground(Color.WHITE);</span>
+<span class="nc" id="L123">		button.setFocusPainted(false);</span>
+<span class="nc" id="L124">		button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));</span>
+<span class="nc" id="L125">		button.setBorderPainted(false);</span>
+<span class="nc" id="L126">		button.setOpaque(true);</span>
+
+		// 添加圆角
+<span class="nc" id="L129">		button.setBorder(BorderFactory.createCompoundBorder(</span>
+<span class="nc" id="L130">				BorderFactory.createLineBorder(bgColor.darker(), 1),</span>
+<span class="nc" id="L131">				BorderFactory.createEmptyBorder(10, 25, 10, 25)</span>
+		));
+<span class="nc" id="L133">	}</span>
+
+	public void setUser(String user) {
+<span class="nc" id="L136">		this.user = user;</span>
+<span class="nc" id="L137">	}</span>
+
+	public void setFrame(JFrame frame) {
+<span class="nc" id="L140">		this.frame = frame;</span>
+<span class="nc" id="L141">	}</span>
+
+	private void addEventListeners() {
+		// 修改信息
+<span class="nc" id="L145">		infoButton.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L148">				new ModifyInformation(user);</span>
+<span class="nc" id="L149">			}</span>
+		});
+
+		// 修改密码
+<span class="nc" id="L153">		passwordButton.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L156">				ModifyPassword password = new ModifyPassword(user);</span>
+<span class="nc" id="L157">				password.setFrame(frame);</span>
+<span class="nc" id="L158">			}</span>
+		});
+
+		// 借书记录
+<span class="nc" id="L162">		recordButton.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L165">				new BorrowRecords(user);</span>
+<span class="nc" id="L166">			}</span>
+		});
+
+		// 退出登陆
+<span class="nc" id="L170">		logoutButton.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L173">				frame.dispose();</span>
+<span class="nc" id="L174">				new Land();</span>
+<span class="nc" id="L175">			}</span>
+		});
+<span class="nc" id="L177">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

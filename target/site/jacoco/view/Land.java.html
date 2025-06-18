@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Land.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">Land.java</span></div><h1>Land.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import database.Landing;
+
+/**
+ * 现代化登陆界面
+ */
+public class Land {
+	// 使用更现代的配色方案
+<span class="fc" id="L13">	private static final Color PRIMARY_COLOR = new Color(30, 136, 229);</span>
+<span class="fc" id="L14">	private static final Color SECONDARY_COLOR = new Color(255, 255, 255);</span>
+<span class="fc" id="L15">	private static final Color ACCENT_COLOR = new Color(255, 152, 0);</span>
+<span class="fc" id="L16">	private static final Color BACKGROUND_COLOR = new Color(245, 248, 250);</span>
+
+	private JFrame frame;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+
+<span class="fc" id="L22">	public Land() {</span>
+<span class="fc" id="L23">		createUI();</span>
+<span class="fc" id="L24">	}</span>
+
+	private void createUI() {
+		// 创建主框架
+<span class="fc" id="L28">		frame = new JFrame(&quot;图书管理系统&quot;);</span>
+<span class="fc" id="L29">		frame.setSize(420, 500);</span>
+<span class="fc" id="L30">		frame.setLayout(new BorderLayout());</span>
+<span class="fc" id="L31">		frame.setLocationRelativeTo(null);</span>
+<span class="fc" id="L32">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+
+		// 设置更现代的最小图标
+<span class="fc" id="L35">		ImageIcon icon = new ImageIcon(&quot;img/logo.png&quot;);</span>
+<span class="fc" id="L36">		frame.setIconImage(icon.getImage());</span>
+
+		// 创建主面板
+<span class="fc" id="L39">		JPanel mainPanel = new JPanel();</span>
+<span class="fc" id="L40">		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));</span>
+<span class="fc" id="L41">		mainPanel.setBackground(BACKGROUND_COLOR);</span>
+<span class="fc" id="L42">		mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 50));</span>
+
+		// 添加标题
+<span class="fc" id="L45">		JLabel titleLabel = new JLabel(&quot;欢迎回来&quot;);</span>
+<span class="fc" id="L46">		titleLabel.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.BOLD, 28));</span>
+<span class="fc" id="L47">		titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="fc" id="L48">		titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));</span>
+<span class="fc" id="L49">		mainPanel.add(titleLabel);</span>
+
+		// 添加副标题
+<span class="fc" id="L52">		JLabel subtitleLabel = new JLabel(&quot;请输入您的账号密码&quot;);</span>
+<span class="fc" id="L53">		subtitleLabel.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.PLAIN, 14));</span>
+<span class="fc" id="L54">		subtitleLabel.setForeground(new Color(120, 144, 156));</span>
+<span class="fc" id="L55">		subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="fc" id="L56">		subtitleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));</span>
+<span class="fc" id="L57">		mainPanel.add(subtitleLabel);</span>
+
+		// 创建表单面板
+<span class="fc" id="L60">		JPanel formPanel = new JPanel();</span>
+<span class="fc" id="L61">		formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));</span>
+<span class="fc" id="L62">		formPanel.setBackground(BACKGROUND_COLOR);</span>
+<span class="fc" id="L63">		formPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));</span>
+
+		// 用户名输入框
+<span class="fc" id="L66">		JLabel userLabel = new JLabel(&quot;用户名&quot;);</span>
+<span class="fc" id="L67">		userLabel.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.PLAIN, 14));</span>
+<span class="fc" id="L68">		formPanel.add(userLabel);</span>
+<span class="fc" id="L69">		formPanel.add(Box.createRigidArea(new Dimension(0, 5)));</span>
+
+<span class="fc" id="L71">		usernameField = new JTextField();</span>
+<span class="fc" id="L72">		stylizeTextField(usernameField, &quot;请输入用户名&quot;);</span>
+<span class="fc" id="L73">		formPanel.add(usernameField);</span>
+<span class="fc" id="L74">		formPanel.add(Box.createRigidArea(new Dimension(0, 20)));</span>
+
+		// 密码输入框
+<span class="fc" id="L77">		JLabel passLabel = new JLabel(&quot;密码&quot;);</span>
+<span class="fc" id="L78">		passLabel.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.PLAIN, 14));</span>
+<span class="fc" id="L79">		formPanel.add(passLabel);</span>
+<span class="fc" id="L80">		formPanel.add(Box.createRigidArea(new Dimension(0, 5)));</span>
+
+<span class="fc" id="L82">		passwordField = new JPasswordField();</span>
+<span class="fc" id="L83">		stylizeTextField(passwordField, &quot;请输入密码&quot;);</span>
+<span class="fc" id="L84">		formPanel.add(passwordField);</span>
+
+<span class="fc" id="L86">		mainPanel.add(formPanel);</span>
+
+		// 创建按钮面板
+<span class="fc" id="L89">		JPanel buttonPanel = new JPanel();</span>
+<span class="fc" id="L90">		buttonPanel.setLayout(new GridLayout(2, 1, 0, 10));</span>
+<span class="fc" id="L91">		buttonPanel.setBackground(BACKGROUND_COLOR);</span>
+
+		// 登录按钮
+<span class="fc" id="L94">		JButton loginButton = new JButton(&quot;登 录&quot;);</span>
+<span class="fc" id="L95">		stylizeButton(loginButton, PRIMARY_COLOR);</span>
+<span class="fc" id="L96">		loginButton.addActionListener(this::loginAction);</span>
+
+		// 注册按钮
+<span class="fc" id="L99">		JButton registerButton = new JButton(&quot;注 册&quot;);</span>
+<span class="fc" id="L100">		stylizeButton(registerButton, SECONDARY_COLOR, PRIMARY_COLOR);</span>
+<span class="fc" id="L101">		registerButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L102">			frame.dispose();</span>
+<span class="nc" id="L103">			new Register();</span>
+<span class="nc" id="L104">		});</span>
+
+<span class="fc" id="L106">		buttonPanel.add(loginButton);</span>
+<span class="fc" id="L107">		buttonPanel.add(registerButton);</span>
+<span class="fc" id="L108">		mainPanel.add(buttonPanel);</span>
+
+		// 添加忘记密码链接
+<span class="fc" id="L111">		JLabel forgotPassword = new JLabel(&quot;&lt;html&gt;&lt;u&gt;忘记密码?&lt;/u&gt;&lt;/html&gt;&quot;);</span>
+<span class="fc" id="L112">		forgotPassword.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.PLAIN, 12));</span>
+<span class="fc" id="L113">		forgotPassword.setForeground(new Color(120, 144, 156));</span>
+<span class="fc" id="L114">		forgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);</span>
+<span class="fc" id="L115">		forgotPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));</span>
+<span class="fc" id="L116">		forgotPassword.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L119">				JOptionPane.showMessageDialog(frame, &quot;请联系系统管理员重置密码&quot;);</span>
+<span class="nc" id="L120">			}</span>
+		});
+<span class="fc" id="L122">		mainPanel.add(Box.createRigidArea(new Dimension(0, 10)));</span>
+<span class="fc" id="L123">		mainPanel.add(forgotPassword);</span>
+
+<span class="fc" id="L125">		frame.add(mainPanel);</span>
+<span class="fc" id="L126">		frame.setVisible(true);</span>
+<span class="fc" id="L127">	}</span>
+
+	// 样式化文本框
+	private void stylizeTextField(JTextField field, String placeholder) {
+<span class="fc" id="L131">		field.setMaximumSize(new Dimension(Short.MAX_VALUE, 45));</span>
+<span class="fc" id="L132">		field.setBorder(BorderFactory.createCompoundBorder(</span>
+<span class="fc" id="L133">				BorderFactory.createLineBorder(new Color(207, 216, 220), 1),</span>
+<span class="fc" id="L134">				BorderFactory.createEmptyBorder(10, 15, 10, 15)</span>
+		));
+<span class="fc" id="L136">		field.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.PLAIN, 14));</span>
+		// 设置占位符文本
+<span class="fc" id="L138">		field.setText(placeholder);</span>
+<span class="fc" id="L139">		field.setForeground(Color.GRAY);</span>
+
+<span class="fc" id="L141">		field.addFocusListener(new FocusAdapter() {</span>
+			@Override
+			public void focusGained(FocusEvent e) {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">				if (field.getText().equals(placeholder)) {</span>
+<span class="nc" id="L145">					field.setText(&quot;&quot;);</span>
+<span class="nc" id="L146">					field.setForeground(Color.BLACK);</span>
+				}
+<span class="nc" id="L148">			}</span>
+
+			@Override
+			public void focusLost(FocusEvent e) {
+<span class="nc bnc" id="L152" title="All 2 branches missed.">				if (field.getText().isEmpty()) {</span>
+<span class="nc" id="L153">					field.setForeground(Color.GRAY);</span>
+<span class="nc" id="L154">					field.setText(placeholder);</span>
+				}
+<span class="nc" id="L156">			}</span>
+		});
+<span class="fc" id="L158">	}</span>
+
+	// 样式化按钮 (默认样式)
+	private void stylizeButton(JButton button, Color bgColor) {
+<span class="fc" id="L162">		stylizeButton(button, bgColor, Color.WHITE);</span>
+<span class="fc" id="L163">	}</span>
+
+	// 样式化按钮 (可指定背景和文字颜色)
+	private void stylizeButton(JButton button, Color bgColor, Color textColor) {
+<span class="fc" id="L167">		button.setBackground(bgColor);</span>
+<span class="fc" id="L168">		button.setForeground(textColor);</span>
+<span class="fc" id="L169">		button.setFont(new Font(&quot;Microsoft YaHei&quot;, Font.BOLD, 14));</span>
+<span class="fc" id="L170">		button.setBorder(BorderFactory.createEmptyBorder(12, 20, 12, 20));</span>
+<span class="fc" id="L171">		button.setFocusPainted(false);</span>
+<span class="fc" id="L172">		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));</span>
+<span class="fc" id="L173">		button.setContentAreaFilled(false);</span>
+<span class="fc" id="L174">		button.setOpaque(true);</span>
+
+		// 添加鼠标悬停效果
+<span class="fc" id="L177">		button.addMouseListener(new MouseAdapter() {</span>
+			@Override
+			public void mouseEntered(MouseEvent e) {
+<span class="nc" id="L180">				button.setBackground(bgColor.darker());</span>
+<span class="nc" id="L181">			}</span>
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+<span class="nc" id="L185">				button.setBackground(bgColor);</span>
+<span class="nc" id="L186">			}</span>
+		});
+<span class="fc" id="L188">	}</span>
+
+	// 登录动作处理
+	private void loginAction(ActionEvent e) {
+<span class="nc" id="L192">		String user = usernameField.getText().trim();</span>
+<span class="nc" id="L193">		String password = new String(passwordField.getPassword()).trim();</span>
+
+		// 检查占位符文本
+<span class="nc bnc" id="L196" title="All 4 branches missed.">		if (user.equals(&quot;请输入用户名&quot;) || password.equals(&quot;请输入密码&quot;)) {</span>
+<span class="nc" id="L197">			JOptionPane.showMessageDialog(frame, &quot;请输入有效的用户名和密码&quot;);</span>
+<span class="nc" id="L198">			return;</span>
+		}
+
+<span class="nc bnc" id="L201" title="All 2 branches missed.">		if (Landing.test(user, password)) {</span>
+<span class="nc" id="L202">			frame.dispose();</span>
+<span class="nc" id="L203">			new MainInterface(user);</span>
+		} else {
+<span class="nc" id="L205">			JOptionPane.showMessageDialog(frame, &quot;用户名或密码错误&quot;, &quot;登录失败&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L206">			passwordField.setText(&quot;&quot;);</span>
+		}
+<span class="nc" id="L208">	}</span>
+
+	public static void main(String[] args) {
+		// 使用系统UI风格使界面更现代
+		try {
+<span class="nc" id="L213">			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());</span>
+<span class="nc" id="L214">		} catch (Exception ex) {</span>
+<span class="nc" id="L215">			ex.printStackTrace();</span>
+<span class="nc" id="L216">		}</span>
+
+		// 在主线程中创建UI
+<span class="nc" id="L219">		SwingUtilities.invokeLater(() -&gt; new Land());</span>
+<span class="nc" id="L220">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

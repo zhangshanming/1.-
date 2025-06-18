@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ModifyInformation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">ModifyInformation.java</span></div><h1>ModifyInformation.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import database.ConnectDatabase;
+
+/**
+ * 修改信息界面
+ * @author K.X
+ * 
+ * */
+public class ModifyInformation extends JFrame{
+	/*
+	 * 两个标签     用户名
+	 * 一标签    一文本框     学号
+	 * 一标签    一文本框      姓名
+	 * */
+	//面板
+<span class="nc" id="L35">	private JPanel jPanel = new JPanel();</span>
+	//标签
+<span class="nc" id="L37">	private JLabel jLabel = new JLabel(&quot;用户名：&quot;);</span>
+<span class="nc" id="L38">	private JLabel jLabel2 = new JLabel();</span>
+<span class="nc" id="L39">	private JLabel jLabel3 = new JLabel(&quot;学  号：&quot;);</span>
+<span class="nc" id="L40">	private JLabel jLabel4 = new JLabel(&quot;姓  名：&quot;);</span>
+	//文本框
+<span class="nc" id="L42">	private JTextField field = new JTextField(22);</span>
+<span class="nc" id="L43">	private JTextField field2 = new JTextField(22);</span>
+	//字体
+<span class="nc" id="L45">	private Font font = new Font(&quot;宋体&quot;, Font.BOLD, 24);</span>
+<span class="nc" id="L46">	private Font font1 = new Font(&quot;宋体&quot;, Font.BOLD, 22);</span>
+	//按钮 修改
+<span class="nc" id="L48">	private JButton button = new JButton(&quot;修改&quot;);</span>
+<span class="nc" id="L49">	public ModifyInformation(String user) {</span>
+<span class="nc" id="L50">		setSize(600, 450);</span>
+		// 改变背景图片
+<span class="nc" id="L52">		Icon i = new ImageIcon(&quot;img\\ah.jpg&quot;);</span>
+<span class="nc" id="L53">		JLabel Label = new JLabel(i);</span>
+<span class="nc" id="L54">		Label.setBounds(0, 0, 600, 150);</span>
+		
+<span class="nc" id="L56">		jLabel2.setText(user);</span>
+<span class="nc" id="L57">		show(user);</span>
+<span class="nc" id="L58">		jLabel.setFont(font);</span>
+<span class="nc" id="L59">		jLabel2.setFont(font);</span>
+<span class="nc" id="L60">		jLabel3.setFont(font);</span>
+<span class="nc" id="L61">		jLabel4.setFont(font);</span>
+<span class="nc" id="L62">		field.setFont(font1);</span>
+<span class="nc" id="L63">		field2.setFont(font1);</span>
+<span class="nc" id="L64">		button.setFont(font1);</span>
+		
+		
+<span class="nc" id="L67">		add();</span>
+		
+<span class="nc" id="L69">		jLabel.setBounds(150, 180, 100, 30);</span>
+<span class="nc" id="L70">		jLabel2.setBounds(260, 180, 300, 30);</span>
+<span class="nc" id="L71">		jLabel3.setBounds(150, 230, 100, 30);</span>
+<span class="nc" id="L72">		field.setBounds(260, 230, 150, 30);</span>
+<span class="nc" id="L73">		jLabel4.setBounds(150, 280, 100, 30);</span>
+<span class="nc" id="L74">		field2.setBounds(260, 280, 150, 30);</span>
+<span class="nc" id="L75">		button.setBounds(145, 340, 268, 30);</span>
+		
+<span class="nc" id="L77">		jPanel.add(jLabel);</span>
+<span class="nc" id="L78">		jPanel.add(jLabel2);</span>
+<span class="nc" id="L79">		jPanel.add(jLabel3);</span>
+<span class="nc" id="L80">		jPanel.add(field);</span>
+<span class="nc" id="L81">		jPanel.add(jLabel4);</span>
+<span class="nc" id="L82">		jPanel.add(field2);</span>
+<span class="nc" id="L83">		jPanel.add(button);</span>
+<span class="nc" id="L84">		jPanel.setLayout(null);</span>
+<span class="nc" id="L85">		jPanel.setBounds(0, 0, 600, 400);</span>
+<span class="nc" id="L86">		jPanel.setOpaque(false);</span>
+<span class="nc" id="L87">		setTitle(&quot;修改信息&quot;);</span>
+<span class="nc" id="L88">		add(jPanel);</span>
+<span class="nc" id="L89">		add(Label);</span>
+		// 不可以改变窗体的大小
+<span class="nc" id="L91">		setResizable(false);</span>
+<span class="nc" id="L92">		setLocationRelativeTo(null);</span>
+<span class="nc" id="L93">		setLayout(null);</span>
+<span class="nc" id="L94">		setVisible(true);</span>
+<span class="nc" id="L95">	}</span>
+	
+	//获取信息显示
+	private void show(String user) {
+<span class="nc" id="L99">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L102">		String sqlStr = &quot;select * from usertable where user = ?&quot;;</span>
+		try {
+<span class="nc" id="L104">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L105">			preSql.setString(1, user);</span>
+<span class="nc" id="L106">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L108">				field.setText(rs.getString(2));</span>
+<span class="nc" id="L109">				field2.setText(rs.getString(3));</span>
+			}
+<span class="nc" id="L111">			con.close();</span>
+<span class="nc" id="L112">		} catch (SQLException e) {</span>
+<span class="nc" id="L113">		}</span>
+<span class="nc" id="L114">	}</span>
+	
+	//修改信息
+	private void modify(String user,String studentid,String name) {
+<span class="nc" id="L118">		Connection con = ConnectDatabase.connectDB();</span>
+
+		PreparedStatement preSql;
+
+<span class="nc" id="L122">		String sqlStr = &quot;update usertable set studentid=? where user = ?&quot;;</span>
+
+		try {
+<span class="nc" id="L125">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L126">			preSql.setString(1, studentid);</span>
+<span class="nc" id="L127">			preSql.setString(2, user);</span>
+<span class="nc" id="L128">			int ok = preSql.executeUpdate();</span>
+			
+<span class="nc" id="L130">			sqlStr = &quot;update usertable set name=? where user = ?&quot;;</span>
+<span class="nc" id="L131">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L132">			preSql.setString(1, name);</span>
+<span class="nc" id="L133">			preSql.setString(2, user);</span>
+<span class="nc" id="L134">			ok = preSql.executeUpdate();</span>
+<span class="nc" id="L135">			con.close();</span>
+<span class="nc" id="L136">		} catch (SQLException e) {</span>
+<span class="nc" id="L137">		}</span>
+<span class="nc" id="L138">	}</span>
+	
+	//添加事件
+	private void add() {
+<span class="nc" id="L142">		button.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+<span class="nc" id="L147">				String user = jLabel2.getText().trim();</span>
+<span class="nc" id="L148">				String studentid = field.getText().trim();</span>
+<span class="nc" id="L149">				String name = field2.getText().trim();</span>
+<span class="nc" id="L150">				modify(user,studentid,name);</span>
+<span class="nc" id="L151">				JOptionPane.showMessageDialog(null, &quot;修改成功&quot;);</span>
+<span class="nc" id="L152">				dispose();</span>
+<span class="nc" id="L153">			}</span>
+		});
+<span class="nc" id="L155">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

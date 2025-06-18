@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BorrowingReturning.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">view</a> &gt; <span class="el_source">BorrowingReturning.java</span></div><h1>BorrowingReturning.java</h1><pre class="source lang-java linenums">package view;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import database.BorrowRecords;
+import database.ConnectDatabase;
+import database.FindBook;
+
+/**
+ * 简约大气版图书借还界面
+ */
+public class BorrowingReturning {
+<span class="nc" id="L28">	public JLayeredPane jLayeredPane = new JLayeredPane();</span>
+
+<span class="nc" id="L30">	private JLabel jLabel = new JLabel(&quot;图书借还&quot;);</span>
+<span class="nc" id="L31">	private JLabel jLabel2 = new JLabel(&quot;请输入书号：&quot;);</span>
+
+<span class="nc" id="L33">	private JLabel jLabel3 = new JLabel(&quot;书号：&quot;);</span>
+<span class="nc" id="L34">	private JLabel jLabel4 = new JLabel();</span>
+<span class="nc" id="L35">	private JLabel jLabel5 = new JLabel(&quot;书名：&quot;);</span>
+<span class="nc" id="L36">	private JLabel jLabel6 = new JLabel();</span>
+<span class="nc" id="L37">	private JLabel jLabel7 = new JLabel(&quot;作者：&quot;);</span>
+<span class="nc" id="L38">	private JLabel jLabel8 = new JLabel();</span>
+<span class="nc" id="L39">	private JLabel jLabel9 = new JLabel(&quot;状态：&quot;);</span>
+<span class="nc" id="L40">	private JLabel jLabel10 = new JLabel();</span>
+
+<span class="nc" id="L42">	private JTextField field = new JTextField(20);</span>
+<span class="nc" id="L43">	private JButton button = new JButton(&quot;检索&quot;);</span>
+<span class="nc" id="L44">	private JButton buttonBorrow = new JButton(&quot;借阅&quot;);</span>
+<span class="nc" id="L45">	private JButton buttonReturn = new JButton(&quot;还书&quot;);</span>
+
+<span class="nc" id="L47">	private JPanel infoPanel = new JPanel();</span>
+
+<span class="nc" id="L49">	private Font fontTitle = new Font(&quot;微软雅黑&quot;, Font.BOLD, 48);</span>
+<span class="nc" id="L50">	private Font fontLabel = new Font(&quot;微软雅黑&quot;, Font.PLAIN, 20);</span>
+<span class="nc" id="L51">	private Font fontButton = new Font(&quot;微软雅黑&quot;, Font.PLAIN, 20);</span>
+
+	private String user;
+<span class="nc" id="L54">	private DefaultTableModel model = new DefaultTableModel();</span>
+	int id;
+
+<span class="nc" id="L57">	public BorrowingReturning() {</span>
+<span class="nc" id="L58">		jLayeredPane.setBackground(new Color(245, 245, 245));</span>
+<span class="nc" id="L59">		jLayeredPane.setOpaque(true);</span>
+
+		// Title
+<span class="nc" id="L62">		jLabel.setFont(fontTitle);</span>
+<span class="nc" id="L63">		jLabel.setBounds(400, 40, 400, 60);</span>
+<span class="nc" id="L64">		jLabel.setForeground(new Color(50, 50, 50));</span>
+<span class="nc" id="L65">		jLabel.setHorizontalAlignment(JLabel.CENTER);</span>
+
+		// Input label
+<span class="nc" id="L68">		jLabel2.setFont(fontLabel);</span>
+<span class="nc" id="L69">		jLabel2.setBounds(300, 130, 150, 30);</span>
+<span class="nc" id="L70">		jLabel2.setForeground(new Color(60, 60, 60));</span>
+
+		// Input field
+<span class="nc" id="L73">		field.setFont(fontLabel);</span>
+<span class="nc" id="L74">		field.setBounds(450, 130, 250, 35);</span>
+<span class="nc" id="L75">		field.setForeground(Color.DARK_GRAY);</span>
+<span class="nc" id="L76">		field.setBackground(Color.WHITE);</span>
+
+		// Search button
+<span class="nc" id="L79">		button.setFont(fontButton);</span>
+<span class="nc" id="L80">		button.setBounds(730, 130, 100, 35);</span>
+<span class="nc" id="L81">		button.setBackground(new Color(100, 149, 237)); // 淡蓝色</span>
+<span class="nc" id="L82">		button.setForeground(Color.WHITE);</span>
+<span class="nc" id="L83">		button.setFocusPainted(false);</span>
+
+		// Info Panel
+<span class="nc" id="L86">		infoPanel.setBounds(250, 200, 700, 400);</span>
+<span class="nc" id="L87">		infoPanel.setBackground(Color.WHITE);</span>
+<span class="nc" id="L88">		infoPanel.setLayout(null);</span>
+<span class="nc" id="L89">		infoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(200, 200, 200), 1));</span>
+
+		// Labels inside Panel
+<span class="nc" id="L92">		jLabel3.setFont(fontLabel);</span>
+<span class="nc" id="L93">		jLabel4.setFont(fontLabel);</span>
+<span class="nc" id="L94">		jLabel5.setFont(fontLabel);</span>
+<span class="nc" id="L95">		jLabel6.setFont(fontLabel);</span>
+<span class="nc" id="L96">		jLabel7.setFont(fontLabel);</span>
+<span class="nc" id="L97">		jLabel8.setFont(fontLabel);</span>
+<span class="nc" id="L98">		jLabel9.setFont(fontLabel);</span>
+<span class="nc" id="L99">		jLabel10.setFont(fontLabel);</span>
+
+<span class="nc" id="L101">		jLabel3.setBounds(50, 40, 100, 30);</span>
+<span class="nc" id="L102">		jLabel4.setBounds(160, 40, 500, 30);</span>
+
+<span class="nc" id="L104">		jLabel5.setBounds(50, 90, 100, 30);</span>
+<span class="nc" id="L105">		jLabel6.setBounds(160, 90, 500, 30);</span>
+
+<span class="nc" id="L107">		jLabel7.setBounds(50, 140, 100, 30);</span>
+<span class="nc" id="L108">		jLabel8.setBounds(160, 140, 500, 30);</span>
+
+<span class="nc" id="L110">		jLabel9.setBounds(50, 190, 100, 30);</span>
+<span class="nc" id="L111">		jLabel10.setBounds(160, 190, 500, 30);</span>
+
+		// Borrow button
+<span class="nc" id="L114">		buttonBorrow.setFont(fontButton);</span>
+<span class="nc" id="L115">		buttonBorrow.setBounds(120, 300, 150, 45);</span>
+<span class="nc" id="L116">		buttonBorrow.setBackground(new Color(60, 179, 113)); // 绿色</span>
+<span class="nc" id="L117">		buttonBorrow.setForeground(Color.WHITE);</span>
+<span class="nc" id="L118">		buttonBorrow.setFocusPainted(false);</span>
+
+		// Return button
+<span class="nc" id="L121">		buttonReturn.setFont(fontButton);</span>
+<span class="nc" id="L122">		buttonReturn.setBounds(420, 300, 150, 45);</span>
+<span class="nc" id="L123">		buttonReturn.setBackground(new Color(220, 20, 60)); // 红色</span>
+<span class="nc" id="L124">		buttonReturn.setForeground(Color.WHITE);</span>
+<span class="nc" id="L125">		buttonReturn.setFocusPainted(false);</span>
+
+		// Add event handlers
+<span class="nc" id="L128">		addEvent();</span>
+
+		// Add components to panel
+<span class="nc" id="L131">		infoPanel.add(jLabel3);</span>
+<span class="nc" id="L132">		infoPanel.add(jLabel4);</span>
+<span class="nc" id="L133">		infoPanel.add(jLabel5);</span>
+<span class="nc" id="L134">		infoPanel.add(jLabel6);</span>
+<span class="nc" id="L135">		infoPanel.add(jLabel7);</span>
+<span class="nc" id="L136">		infoPanel.add(jLabel8);</span>
+<span class="nc" id="L137">		infoPanel.add(jLabel9);</span>
+<span class="nc" id="L138">		infoPanel.add(jLabel10);</span>
+<span class="nc" id="L139">		infoPanel.add(buttonBorrow);</span>
+<span class="nc" id="L140">		infoPanel.add(buttonReturn);</span>
+
+		// Add all to layeredPane
+<span class="nc" id="L143">		jLayeredPane.add(jLabel, new Integer(100));</span>
+<span class="nc" id="L144">		jLayeredPane.add(jLabel2, new Integer(100));</span>
+<span class="nc" id="L145">		jLayeredPane.add(field, new Integer(100));</span>
+<span class="nc" id="L146">		jLayeredPane.add(button, new Integer(100));</span>
+<span class="nc" id="L147">		jLayeredPane.add(infoPanel, new Integer(100));</span>
+<span class="nc" id="L148">	}</span>
+
+	public void setUser(String user) {
+<span class="nc" id="L151">		this.user = user;</span>
+<span class="nc" id="L152">	}</span>
+
+	public void setModel(DefaultTableModel model) {
+<span class="nc" id="L155">		this.model = model;</span>
+<span class="nc" id="L156">	}</span>
+
+	private void addEvent() {
+<span class="nc" id="L159">		button.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+<span class="nc" id="L163">					id = Integer.parseInt(field.getText().trim());</span>
+<span class="nc" id="L164">					field.setText(&quot;&quot;);</span>
+<span class="nc" id="L165">					Connection con = ConnectDatabase.connectDB();</span>
+					PreparedStatement preSql;
+					ResultSet rs;
+<span class="nc" id="L168">					String sqlStr = &quot;select * from booktable where bookid = ?&quot;;</span>
+<span class="nc" id="L169">					preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L170">					preSql.setInt(1, id);</span>
+<span class="nc" id="L171">					rs = preSql.executeQuery();</span>
+<span class="nc" id="L172">					boolean found = false;</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">					while (rs.next()) {</span>
+<span class="nc" id="L174">						found = true;</span>
+<span class="nc" id="L175">						jLabel4.setText(rs.getString(1)); // 书号</span>
+<span class="nc" id="L176">						jLabel6.setText(rs.getString(3)); // 书名</span>
+<span class="nc" id="L177">						jLabel8.setText(rs.getString(4)); // 作者</span>
+<span class="nc" id="L178">						jLabel10.setText(rs.getString(6)); // 状态</span>
+					}
+<span class="nc bnc" id="L180" title="All 2 branches missed.">					if (!found) {</span>
+<span class="nc" id="L181">						JOptionPane.showMessageDialog(null, &quot;图书不存在&quot;, &quot;提示&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L182">						empty();</span>
+					}
+<span class="nc" id="L184">					con.close();</span>
+<span class="nc" id="L185">				} catch (Exception ex) {</span>
+<span class="nc" id="L186">					JOptionPane.showMessageDialog(null, &quot;请输入正确的书号&quot;, &quot;错误&quot;, JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L187">					field.setText(&quot;&quot;);</span>
+<span class="nc" id="L188">				}</span>
+<span class="nc" id="L189">			}</span>
+		});
+
+<span class="nc" id="L192">		buttonBorrow.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L195" title="All 2 branches missed.">				if (jLabel10.getText().equals(&quot;在馆&quot;)) {</span>
+<span class="nc" id="L196">					id = Integer.parseInt(jLabel4.getText().trim());</span>
+<span class="nc" id="L197">					BorrowRecords.Borrow(user, id, jLabel6.getText().trim());</span>
+<span class="nc" id="L198">					JOptionPane.showMessageDialog(null, &quot;借阅成功！&quot;, &quot;提示&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L199">					empty();</span>
+<span class="nc" id="L200">					model.setRowCount(0);</span>
+<span class="nc" id="L201">					FindBook.allbook(model);</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">				} else if (jLabel10.getText().equals(&quot;外借&quot;)) {</span>
+<span class="nc" id="L203">					JOptionPane.showMessageDialog(null, &quot;此书已外借！&quot;, &quot;提示&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L204">					empty();</span>
+				} else {
+<span class="nc" id="L206">					JOptionPane.showMessageDialog(null, &quot;未检索图书&quot;, &quot;提示&quot;, JOptionPane.WARNING_MESSAGE);</span>
+				}
+<span class="nc" id="L208">			}</span>
+		});
+
+<span class="nc" id="L211">		buttonReturn.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L214" title="All 2 branches missed.">				if (jLabel10.getText().equals(&quot;外借&quot;)) {</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">					if (BorrowRecords.comparison(user, id)) {</span>
+<span class="nc" id="L216">						id = Integer.parseInt(jLabel4.getText().trim());</span>
+<span class="nc" id="L217">						BorrowRecords.Return(user, id);</span>
+<span class="nc" id="L218">						JOptionPane.showMessageDialog(null, &quot;还书成功！&quot;, &quot;提示&quot;, JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L219">						empty();</span>
+<span class="nc" id="L220">						model.setRowCount(0);</span>
+<span class="nc" id="L221">						FindBook.allbook(model);</span>
+					} else {
+<span class="nc" id="L223">						JOptionPane.showMessageDialog(null, &quot;该书不是您借的&quot;, &quot;提示&quot;, JOptionPane.WARNING_MESSAGE);</span>
+					}
+<span class="nc bnc" id="L225" title="All 2 branches missed.">				} else if (jLabel10.getText().equals(&quot;在馆&quot;)) {</span>
+<span class="nc" id="L226">					JOptionPane.showMessageDialog(null, &quot;该书已在馆&quot;, &quot;提示&quot;, JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L227">					empty();</span>
+				} else {
+<span class="nc" id="L229">					JOptionPane.showMessageDialog(null, &quot;未检索图书&quot;, &quot;提示&quot;, JOptionPane.WARNING_MESSAGE);</span>
+				}
+<span class="nc" id="L231">			}</span>
+		});
+<span class="nc" id="L233">	}</span>
+
+	public void empty() {
+<span class="nc" id="L236">		jLabel4.setText(&quot;&quot;);</span>
+<span class="nc" id="L237">		jLabel6.setText(&quot;&quot;);</span>
+<span class="nc" id="L238">		jLabel8.setText(&quot;&quot;);</span>
+<span class="nc" id="L239">		jLabel10.setText(&quot;&quot;);</span>
+<span class="nc" id="L240">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

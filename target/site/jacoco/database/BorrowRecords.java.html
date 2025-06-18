@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BorrowRecords.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">BorrowRecords.java</span></div><h1>BorrowRecords.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
+
+
+public class BorrowRecords {
+<span class="nc" id="L15">	public BorrowRecords() {</span>
+<span class="nc" id="L16">	}</span>
+	//借阅图书
+	public static void Borrow(String user, int bookid, String bookname) {
+<span class="nc" id="L19">		Connection con = ConnectDatabase.connectDB();</span>
+
+		PreparedStatement preSql;
+
+<span class="nc" id="L23">		String sqlStr = &quot;insert into borrowrecords(user,bookid,bookname,borrowtime,returntime,status) values (?,?,?,now(),null,?)&quot;;</span>
+
+		try {
+<span class="nc" id="L26">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L27">			preSql.setString(1, user);</span>
+<span class="nc" id="L28">			preSql.setInt(2, bookid);</span>
+<span class="nc" id="L29">			preSql.setString(3, bookname);</span>
+<span class="nc" id="L30">			preSql.setString(4, &quot;未还&quot;);</span>
+<span class="nc" id="L31">			int ok = preSql.executeUpdate();</span>
+<span class="nc" id="L32">			con.close();</span>
+<span class="nc" id="L33">			ChangeBorrowState(bookid);</span>
+<span class="nc" id="L34">		} catch (SQLException e) {</span>
+<span class="nc" id="L35">		}</span>
+<span class="nc" id="L36">	}</span>
+	//借阅图书修改图书状态
+	private static void ChangeBorrowState(int bookid) {
+<span class="nc" id="L39">		Connection con = ConnectDatabase.connectDB();</span>
+
+		PreparedStatement preSql;
+
+<span class="nc" id="L43">		String sqlStr = &quot;update booktable set state=? where bookid = ?&quot;;</span>
+
+		try {
+<span class="nc" id="L46">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L47">			preSql.setString(1, &quot;外借&quot;);</span>
+<span class="nc" id="L48">			preSql.setInt(2, bookid);</span>
+			
+<span class="nc" id="L50">			int ok = preSql.executeUpdate();</span>
+<span class="nc" id="L51">			con.close();</span>
+<span class="nc" id="L52">		} catch (SQLException e) {</span>
+<span class="nc" id="L53">		}</span>
+<span class="nc" id="L54">	}</span>
+	
+	//还书
+	public static void Return(String user, int bookid) {
+<span class="nc" id="L58">		Connection con = ConnectDatabase.connectDB();</span>
+
+		PreparedStatement preSql;
+<span class="nc" id="L61">		String sqlStr = &quot;select now()&quot;;</span>
+		ResultSet rs;
+<span class="nc" id="L63">		Date date=null;</span>
+		try {
+<span class="nc" id="L65">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L66">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc" id="L68">				date = rs.getDate(1);</span>
+			}
+<span class="nc" id="L70">			sqlStr = &quot;update borrowrecords set returntime =  ? where bookid = ? and user = ? and status = ?&quot;;</span>
+<span class="nc" id="L71">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L72">			preSql.setDate(1, date);</span>
+<span class="nc" id="L73">			preSql.setInt(2, bookid);</span>
+<span class="nc" id="L74">			preSql.setString(3, user);</span>
+<span class="nc" id="L75">			preSql.setString(4, &quot;未还&quot;);</span>
+<span class="nc" id="L76">			int ok = preSql.executeUpdate();</span>
+			
+<span class="nc" id="L78">			sqlStr = &quot;update borrowrecords set status = ? where bookid = ? and user = ? and status = ?&quot;;</span>
+<span class="nc" id="L79">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L80">			preSql.setString(1, &quot;已还&quot;);</span>
+<span class="nc" id="L81">			preSql.setInt(2, bookid);</span>
+<span class="nc" id="L82">			preSql.setString(3, user);</span>
+<span class="nc" id="L83">			preSql.setString(4, &quot;未还&quot;);</span>
+<span class="nc" id="L84">			ok = preSql.executeUpdate();</span>
+			
+<span class="nc" id="L86">			con.close();</span>
+<span class="nc" id="L87">			ChangeReturnState(bookid);</span>
+<span class="nc" id="L88">		} catch (SQLException e) {</span>
+<span class="nc" id="L89">		}</span>
+<span class="nc" id="L90">	}</span>
+	//还书图书修改图书状态
+	private static void ChangeReturnState(int bookid) {
+<span class="nc" id="L93">		Connection con = ConnectDatabase.connectDB();</span>
+
+		PreparedStatement preSql;
+
+<span class="nc" id="L97">		String sqlStr = &quot;update booktable set state=? where bookid = ?&quot;;</span>
+
+		try {
+<span class="nc" id="L100">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L101">			preSql.setString(1, &quot;在馆&quot;);</span>
+<span class="nc" id="L102">			preSql.setInt(2, bookid);</span>
+			
+<span class="nc" id="L104">			int ok = preSql.executeUpdate();</span>
+<span class="nc" id="L105">			con.close();</span>
+<span class="nc" id="L106">		} catch (SQLException e) {</span>
+<span class="nc" id="L107">		}</span>
+<span class="nc" id="L108">	}</span>
+	//比对还书
+	public static boolean comparison(String user,int bookid) {
+<span class="nc" id="L111">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L114">		String sqlStr = &quot;select * from borrowrecords where bookid = ? and status = ?&quot;;</span>
+		try {
+<span class="nc" id="L116">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L117">			preSql.setInt(1, bookid);</span>
+<span class="nc" id="L118">			preSql.setString(2, &quot;未还&quot;);</span>
+<span class="nc" id="L119">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L121">				String user2 = rs.getString(2);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">				if(user2.equals(user)) {</span>
+<span class="nc" id="L123">					return true;</span>
+				}else {
+<span class="nc" id="L125">					return false;</span>
+				}
+			}
+<span class="nc" id="L128">			con.close();</span>
+<span class="nc" id="L129">			return false;</span>
+<span class="nc" id="L130">		} catch (SQLException e) {</span>
+<span class="nc" id="L131">			return false;</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

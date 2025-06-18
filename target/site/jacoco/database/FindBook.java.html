@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FindBook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">FindBook.java</span></div><h1>FindBook.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class FindBook {
+
+<span class="nc" id="L15">	FindBook() {</span>
+<span class="nc" id="L16">	}</span>
+
+	// 显示所有图书
+	public static void allbook(DefaultTableModel model) {
+
+<span class="nc" id="L21">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L24">		String sqlStr = &quot;select * from booktable&quot;;</span>
+		try {
+<span class="nc" id="L26">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L27">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L29">				int bookid = rs.getInt(1);</span>
+<span class="nc" id="L30">				String category = rs.getString(2);</span>
+<span class="nc" id="L31">				String bookname = rs.getString(3);</span>
+<span class="nc" id="L32">				String author = rs.getString(4);</span>
+<span class="nc" id="L33">				String press = rs.getString(5);</span>
+<span class="nc" id="L34">				String state = rs.getString(6);</span>
+<span class="nc" id="L35">				model.addRow(new Vector&lt;&gt;(Arrays.asList(bookid, category, bookname, author, press, state)));</span>
+<span class="nc" id="L36">			}</span>
+<span class="nc" id="L37">			con.close();</span>
+<span class="nc" id="L38">		} catch (SQLException e) {</span>
+<span class="nc" id="L39">		}</span>
+<span class="nc" id="L40">	}</span>
+
+	// 按类别查找图书
+	public static void findcategory(DefaultTableModel model, String CateGory) {
+<span class="nc" id="L44">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L47">		CateGory = &quot;%&quot; + CateGory + &quot;%&quot;;</span>
+<span class="nc" id="L48">		String sqlStr = &quot;select * from booktable where category like ?&quot;;</span>
+		try {
+<span class="nc" id="L50">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L51">			preSql.setString(1, CateGory);</span>
+<span class="nc" id="L52">			rs = preSql.executeQuery();</span>
+<span class="nc" id="L53">			boolean flag = false;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L55">				flag = true;</span>
+<span class="nc" id="L56">				int bookid = rs.getInt(1);</span>
+<span class="nc" id="L57">				String category = rs.getString(2);</span>
+<span class="nc" id="L58">				String bookname = rs.getString(3);</span>
+<span class="nc" id="L59">				String author = rs.getString(4);</span>
+<span class="nc" id="L60">				String press = rs.getString(5);</span>
+<span class="nc" id="L61">				String state = rs.getString(6);</span>
+<span class="nc" id="L62">				model.addRow(new Vector&lt;&gt;(Arrays.asList(bookid, category, bookname, author, press, state)));</span>
+<span class="nc" id="L63">			}</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			if (!flag) {</span>
+<span class="nc" id="L65">				JOptionPane.showMessageDialog(null, &quot;图书不存在&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+			}
+<span class="nc" id="L67">			con.close();</span>
+<span class="nc" id="L68">		} catch (SQLException e) {</span>
+<span class="nc" id="L69">		}</span>
+<span class="nc" id="L70">	}</span>
+
+	// 按书名查找图书
+	public static void findbookname(DefaultTableModel model, String BookName) {
+<span class="nc" id="L74">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L77">		BookName = &quot;%&quot; + BookName + &quot;%&quot;;</span>
+<span class="nc" id="L78">		String sqlStr = &quot;select * from booktable where bookname like ?&quot;;</span>
+		try {
+<span class="nc" id="L80">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L81">			preSql.setString(1, BookName);</span>
+<span class="nc" id="L82">			rs = preSql.executeQuery();</span>
+<span class="nc" id="L83">			boolean flag = false;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L85">				flag = true;</span>
+<span class="nc" id="L86">				int bookid = rs.getInt(1);</span>
+<span class="nc" id="L87">				String category = rs.getString(2);</span>
+<span class="nc" id="L88">				String bookname = rs.getString(3);</span>
+<span class="nc" id="L89">				String author = rs.getString(4);</span>
+<span class="nc" id="L90">				String press = rs.getString(5);</span>
+<span class="nc" id="L91">				String state = rs.getString(6);</span>
+<span class="nc" id="L92">				model.addRow(new Vector&lt;&gt;(Arrays.asList(bookid, category, bookname, author, press, state)));</span>
+<span class="nc" id="L93">			}</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">			if (!flag) {</span>
+<span class="nc" id="L95">				JOptionPane.showMessageDialog(null, &quot;图书不存在&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+			}
+<span class="nc" id="L97">			con.close();</span>
+<span class="nc" id="L98">		} catch (SQLException e) {</span>
+<span class="nc" id="L99">		}</span>
+<span class="nc" id="L100">	}</span>
+
+	// 按作者查找图书
+	public static void findauthor(DefaultTableModel model, String Author) {
+<span class="nc" id="L104">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L107">		Author = &quot;%&quot; + Author + &quot;%&quot;;</span>
+<span class="nc" id="L108">		String sqlStr = &quot;select * from booktable where author like ?&quot;;</span>
+		try {
+<span class="nc" id="L110">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L111">			preSql.setString(1, Author);</span>
+<span class="nc" id="L112">			rs = preSql.executeQuery();</span>
+<span class="nc" id="L113">			boolean flag = false;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L115">				flag = true;</span>
+<span class="nc" id="L116">				int bookid = rs.getInt(1);</span>
+<span class="nc" id="L117">				String category = rs.getString(2);</span>
+<span class="nc" id="L118">				String bookname = rs.getString(3);</span>
+<span class="nc" id="L119">				String author = rs.getString(4);</span>
+<span class="nc" id="L120">				String press = rs.getString(5);</span>
+<span class="nc" id="L121">				String state = rs.getString(6);</span>
+<span class="nc" id="L122">				model.addRow(new Vector&lt;&gt;(Arrays.asList(bookid, category, bookname, author, press, state)));</span>
+<span class="nc" id="L123">			}</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">			if (!flag) {</span>
+<span class="nc" id="L125">				JOptionPane.showMessageDialog(null, &quot;图书不存在&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+			}
+<span class="nc" id="L127">			con.close();</span>
+<span class="nc" id="L128">		} catch (SQLException e) {</span>
+<span class="nc" id="L129">		}</span>
+<span class="nc" id="L130">	}</span>
+
+	// 按书号查找图书
+	public static void findbookid(DefaultTableModel model, int BookId) {
+<span class="nc" id="L134">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L137">		String sqlStr = &quot;select * from booktable where bookid = ?&quot;;</span>
+		try {
+<span class="nc" id="L139">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L140">			preSql.setInt(1, BookId);</span>
+<span class="nc" id="L141">			rs = preSql.executeQuery();</span>
+<span class="nc" id="L142">			boolean flag = false;</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L144">				flag = true;</span>
+<span class="nc" id="L145">				int bookid = rs.getInt(1);</span>
+<span class="nc" id="L146">				String category = rs.getString(2);</span>
+<span class="nc" id="L147">				String bookname = rs.getString(3);</span>
+<span class="nc" id="L148">				String author = rs.getString(4);</span>
+<span class="nc" id="L149">				String press = rs.getString(5);</span>
+<span class="nc" id="L150">				String state = rs.getString(6);</span>
+<span class="nc" id="L151">				model.addRow(new Vector&lt;&gt;(Arrays.asList(bookid, category, bookname, author, press, state)));</span>
+<span class="nc" id="L152">			}</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">			if (!flag) {</span>
+<span class="nc" id="L154">				JOptionPane.showMessageDialog(null, &quot;图书不存在&quot;, &quot;警告&quot;, JOptionPane.WARNING_MESSAGE);</span>
+			}
+<span class="nc" id="L156">			con.close();</span>
+<span class="nc" id="L157">		} catch (SQLException e) {</span>
+<span class="nc" id="L158">		}</span>
+<span class="nc" id="L159">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

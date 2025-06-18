@@ -1,0 +1,75 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+library-system,view,DeleteBook.new ActionListener() {...},30,0,0,0,9,0,2,0,2,0
+library-system,view,Register.new ActionListener() {...},9,6,0,0,3,1,1,1,1,1
+library-system,view,Admin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,Register.new ActionListener() {...},156,6,14,0,26,1,8,1,1,1
+library-system,view,Main,8,0,0,0,3,0,2,0,2,0
+library-system,view,AdminBorrow.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,Admin.new ActionListener() {...},19,0,0,0,4,0,2,0,2,0
+library-system,view,ModifyCategory,213,0,0,0,42,0,2,0,2,0
+library-system,view,Admin.new ActionListener() {...},14,0,0,0,3,0,2,0,2,0
+library-system,view,AdminBorrow.new ActionListener() {...},62,0,4,0,14,0,4,0,2,0
+library-system,view,Register,21,630,0,0,6,124,1,4,1,4
+library-system,view,Admin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,AccountManagement.RoundedPanel,58,0,0,0,9,0,2,0,2,0
+library-system,view,Admin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,Admin.new ActionListener() {...},15,0,0,0,4,0,2,0,2,0
+library-system,view,ModifyPassword,371,0,4,0,80,0,7,0,5,0
+library-system,view,Admin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,BookSearch,477,0,0,0,82,0,3,0,3,0
+library-system,view,BookAdmin,280,0,0,0,54,0,3,0,3,0
+library-system,view,BookSearch.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,BookSearch.new ActionListener() {...},145,0,24,0,38,0,14,0,2,0
+library-system,view,BorrowRecords,322,0,4,0,68,0,4,0,2,0
+library-system,view,AddBook.new ActionListener() {...},44,0,0,0,9,0,2,0,2,0
+library-system,view,AddBook.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,AddBook,416,0,0,0,79,0,3,0,3,0
+library-system,view,DeleteBook,206,0,0,0,42,0,3,0,3,0
+library-system,view,ModifyInformation.new ActionListener() {...},37,0,0,0,8,0,2,0,2,0
+library-system,view,AccountManagement.new MouseAdapter() {...},37,0,2,0,7,0,4,0,3,0
+library-system,view,AccountManagement.new ActionListener() {...},14,0,0,0,3,0,2,0,2,0
+library-system,view,AccountManagement.new ActionListener() {...},19,0,0,0,4,0,2,0,2,0
+library-system,view,AccountManagement.new ActionListener() {...},14,0,0,0,3,0,2,0,2,0
+library-system,view,ModifyInformation,344,0,2,0,79,0,5,0,4,0
+library-system,view,AccountManagement.new ActionListener() {...},15,0,0,0,4,0,2,0,2,0
+library-system,view,AddCategory,196,0,0,0,41,0,3,0,3,0
+library-system,view,Land.new MouseAdapter() {...},13,12,0,0,4,1,2,1,2,1
+library-system,view,Land,73,475,6,0,20,93,7,6,4,6
+library-system,view,Land.new FocusAdapter() {...},31,12,4,0,8,1,4,1,2,1
+library-system,view,Land.new MouseAdapter() {...},6,6,0,0,2,1,1,1,1,1
+library-system,view,BorrowingReturning.new ActionListener() {...},74,0,4,0,13,0,4,0,2,0
+library-system,view,BorrowingReturning.new ActionListener() {...},98,0,4,0,24,0,4,0,2,0
+library-system,view,ModifyPassword.new ActionListener() {...},96,0,8,0,21,0,6,0,2,0
+library-system,view,BorrowingReturning.new ActionListener() {...},83,0,6,0,15,0,5,0,2,0
+library-system,view,AdminAccount,279,0,4,0,61,0,4,0,2,0
+library-system,view,AddCategory.new ActionListener() {...},19,0,2,0,5,0,3,0,2,0
+library-system,view,Permissions,238,0,0,0,48,0,2,0,2,0
+library-system,view,BookAdmin.new ActionListener() {...},16,0,0,0,4,0,2,0,2,0
+library-system,view,BookAdmin.new ActionListener() {...},16,0,0,0,4,0,2,0,2,0
+library-system,view,BookAdmin.new ActionListener() {...},16,0,0,0,4,0,2,0,2,0
+library-system,view,BookAdmin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,BookAdmin.new ActionListener() {...},11,0,0,0,3,0,2,0,2,0
+library-system,view,ModifyBook,527,0,0,0,102,0,3,0,3,0
+library-system,view,ModifyCategory.new ActionListener() {...},26,0,2,0,6,0,3,0,2,0
+library-system,view,BorrowingReturning,564,0,0,0,99,0,5,0,5,0
+library-system,view,MainInterface,268,0,2,0,52,0,2,0,1,0
+library-system,view,AccountManagement,330,0,2,0,60,0,6,0,5,0
+library-system,view,AdminSetPass,213,0,0,0,42,0,2,0,2,0
+library-system,view,ModifyBook.new ActionListener() {...},62,0,0,0,13,0,2,0,2,0
+library-system,view,Permissions.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,ModifyBook.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,ModifyBook.new ItemListener() {...},18,0,2,0,4,0,3,0,2,0
+library-system,view,AdminSetPass.new ActionListener() {...},34,0,2,0,8,0,3,0,2,0
+library-system,view,AdminBorrow,391,0,0,0,76,0,2,0,2,0
+library-system,view,Admin,357,0,0,0,69,0,4,0,4,0
+library-system,view,Permissions.new ActionListener() {...},57,0,8,0,14,0,6,0,2,0
+library-system,database,Category,70,0,2,0,26,0,4,0,3,0
+library-system,database,FindBorrow,234,0,6,0,53,0,7,0,4,0
+library-system,database,Adduser,150,0,14,0,54,0,11,0,4,0
+library-system,database,ModifyPassword,27,0,0,0,12,0,2,0,2,0
+library-system,database,Landing,102,0,10,0,36,0,8,0,3,0
+library-system,database,BorrowRecords,204,0,6,0,76,0,9,0,6,0
+library-system,database,FindBook,481,0,18,0,110,0,15,0,6,0
+library-system,database,UpdateAdmin,130,0,4,0,55,0,8,0,6,0
+library-system,database,Book,77,49,2,0,32,18,4,2,3,2
+library-system,database,ConnectDatabase,18,25,1,1,8,11,2,1,1,1

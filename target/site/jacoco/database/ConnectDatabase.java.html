@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectDatabase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">ConnectDatabase.java</span></div><h1>ConnectDatabase.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+<span class="nc" id="L7">public class ConnectDatabase {</span>
+
+	public static Connection connectDB() {
+		//String url = &quot;jdbc:mysql://localhost:3307/book?serverTimezone=GMT%2B8&quot;;
+		//String url = &quot;jdbc:mysql://localhost:3306/mis?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&quot;;
+		//String url = &quot;jdbc:mysql://localhost:3307/book?useSSL=false&amp;verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&quot;;
+<span class="fc" id="L13">		String url = &quot;jdbc:mysql://localhost:3307/book?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;verifyServerCertificate=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&quot;;</span>
+		// 在ConnectDatabase.java中
+		//String url = &quot;jdbc:mysql://localhost:3307/book?useUnicode=true&amp;characterEncoding=UTF-8&quot;;
+<span class="fc" id="L16">		String username = &quot;root&quot;;</span>
+<span class="fc" id="L17">		String password = &quot;root&quot;;</span>
+<span class="fc" id="L18">		Connection con = null;</span>
+
+		try {
+<span class="fc" id="L21">			Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span>
+<span class="nc" id="L22">		} catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L23">			System.out.println(&quot;MySQL JDBC Driver not found.&quot;);</span>
+<span class="nc" id="L24">			e.printStackTrace();</span>
+<span class="fc" id="L25">		}</span>
+
+		try {
+<span class="fc" id="L28">			con = DriverManager.getConnection(url, username, password);</span>
+<span class="fc" id="L29">			System.out.println(&quot;Connection successful!&quot;);</span>
+<span class="nc" id="L30">		} catch (SQLException e) {</span>
+<span class="nc" id="L31">			System.out.println(&quot;Connection failed!&quot;);</span>
+<span class="nc" id="L32">			e.printStackTrace();</span>
+<span class="fc" id="L33">		}</span>
+
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">		if (con == null) {</span>
+<span class="nc" id="L36">			System.out.println(&quot;Failed to make connection!&quot;);</span>
+		}
+
+<span class="fc" id="L39">		return con;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

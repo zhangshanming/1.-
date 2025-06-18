@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FindBorrow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">library-system</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">FindBorrow.java</span></div><h1>FindBorrow.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
+
+public class FindBorrow {
+<span class="nc" id="L14">	public FindBorrow() {</span>
+<span class="nc" id="L15">	}</span>
+	//所有借书记录
+	public static void allborrow(DefaultTableModel model) {
+
+<span class="nc" id="L19">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L22">		String sqlStr = &quot;select * from borrowrecords&quot;;</span>
+		try {
+<span class="nc" id="L24">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L25">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L27">				String user = rs.getString(2);</span>
+<span class="nc" id="L28">				int bookid = rs.getInt(3);</span>
+<span class="nc" id="L29">				String bookname = rs.getString(4);</span>
+<span class="nc" id="L30">				Date date = rs.getDate(5);</span>
+<span class="nc" id="L31">				Date date2 = rs.getDate(6);</span>
+<span class="nc" id="L32">				String status = rs.getString(7);</span>
+<span class="nc" id="L33">				model.addRow(new Vector&lt;&gt;(Arrays.asList(user,bookid,bookname,date,date2,status)));</span>
+<span class="nc" id="L34">			}</span>
+<span class="nc" id="L35">			con.close();</span>
+<span class="nc" id="L36">		} catch (SQLException e) {</span>
+<span class="nc" id="L37">		}</span>
+<span class="nc" id="L38">	}</span>
+	
+	//用户名借书记录
+	public static void userborrow(DefaultTableModel model,String user) {
+
+<span class="nc" id="L43">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L46">		String sqlStr = &quot;select * from borrowrecords where user = ?&quot;;</span>
+		try {
+<span class="nc" id="L48">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L49">			preSql.setString(1, user);</span>
+<span class="nc" id="L50">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L52">				int bookid = rs.getInt(3);</span>
+<span class="nc" id="L53">				String bookname = rs.getString(4);</span>
+<span class="nc" id="L54">				Date date = rs.getDate(5);</span>
+<span class="nc" id="L55">				Date date2 = rs.getDate(6);</span>
+<span class="nc" id="L56">				String status = rs.getString(7);</span>
+<span class="nc" id="L57">				model.addRow(new Vector&lt;&gt;(Arrays.asList(user,bookid,bookname,date,date2,status)));</span>
+<span class="nc" id="L58">			}</span>
+<span class="nc" id="L59">			con.close();</span>
+<span class="nc" id="L60">		} catch (SQLException e) {</span>
+<span class="nc" id="L61">		}</span>
+<span class="nc" id="L62">	}</span>
+	
+	//书号借书记录
+	public static void bookidborrow(DefaultTableModel model,int bookid) {
+
+<span class="nc" id="L67">		Connection con = ConnectDatabase.connectDB();</span>
+		PreparedStatement preSql;
+		ResultSet rs;
+<span class="nc" id="L70">		String sqlStr = &quot;select * from borrowrecords where bookid = ?&quot;;</span>
+		try {
+<span class="nc" id="L72">			preSql = con.prepareStatement(sqlStr);</span>
+<span class="nc" id="L73">			preSql.setInt(1, bookid);</span>
+<span class="nc" id="L74">			rs = preSql.executeQuery();</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">			while (rs.next()) {</span>
+<span class="nc" id="L76">				String user = rs.getString(2);</span>
+<span class="nc" id="L77">				String bookname = rs.getString(4);</span>
+<span class="nc" id="L78">				Date date = rs.getDate(5);</span>
+<span class="nc" id="L79">				Date date2 = rs.getDate(6);</span>
+<span class="nc" id="L80">				String status = rs.getString(7);</span>
+<span class="nc" id="L81">				model.addRow(new Vector&lt;&gt;(Arrays.asList(user,bookid,bookname,date,date2,status)));</span>
+<span class="nc" id="L82">			}</span>
+<span class="nc" id="L83">			con.close();</span>
+<span class="nc" id="L84">		} catch (SQLException e) {</span>
+<span class="nc" id="L85">		}</span>
+<span class="nc" id="L86">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
