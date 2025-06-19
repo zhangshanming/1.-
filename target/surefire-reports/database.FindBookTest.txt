@@ -1,0 +1,144 @@
+-------------------------------------------------------------------------------
+Test set: database.FindBookTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 0, Errors: 20, Skipped: 0, Time elapsed: 0.018 s <<< FAILURE! - in database.FindBookTest
+database.FindBookTest.testAllbook_withData  Time elapsed: 0.002 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testAllbook_withData  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindbookid_notFound  Time elapsed: 0.003 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindbookid_notFound  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindbookname_notFound  Time elapsed: 0.001 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindbookname_notFound  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindauthor_found  Time elapsed: 0.002 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindauthor_found  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindbookid_found  Time elapsed: 0.001 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindbookid_found  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindauthor_notFound  Time elapsed: 0.001 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindauthor_notFound  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindcategory_notFound  Time elapsed: 0.002 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindcategory_notFound  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testAllbook_noData  Time elapsed: 0.001 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testAllbook_noData  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindbookname_found  Time elapsed: 0.002 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindbookname_found  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+
+database.FindBookTest.testFindcategory_found  Time elapsed: 0.002 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+
+database.FindBookTest.testFindcategory_found  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+

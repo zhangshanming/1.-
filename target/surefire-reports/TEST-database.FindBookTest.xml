@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="database.FindBookTest" time="0.018" tests="20" errors="20" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.class.path" value="E:\gittest\1.-\target\test-classes;E:\gittest\1.-\target\classes;C:\Users\张得帅\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\张得帅\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\张得帅\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\张得帅\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\张得帅\.m2\repository\org\mockito\mockito-core\3.12.4\mockito-core-3.12.4.jar;C:\Users\张得帅\.m2\repository\net\bytebuddy\byte-buddy\1.11.13\byte-buddy-1.11.13.jar;C:\Users\张得帅\.m2\repository\net\bytebuddy\byte-buddy-agent\1.11.13\byte-buddy-agent-1.11.13.jar;C:\Users\张得帅\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;C:\Users\张得帅\.m2\repository\com\h2database\h2\1.4.200\h2-1.4.200.jar;C:\Users\张得帅\.m2\repository\commons-dbutils\commons-dbutils\1.7\commons-dbutils-1.7.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_321\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\张得帅\AppData\Local\Temp\surefire2377824068674732742\surefirebooter3572885416676086022.jar C:\Users\张得帅\AppData\Local\Temp\surefire2377824068674732742 2025-06-19T11-46-30_546-jvmRun1 surefire5710197165549630363tmp surefire_05372071566804524997tmp"/>
+    <property name="surefire.test.class.path" value="E:\gittest\1.-\target\test-classes;E:\gittest\1.-\target\classes;C:\Users\张得帅\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\张得帅\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\张得帅\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\张得帅\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\张得帅\.m2\repository\org\mockito\mockito-core\3.12.4\mockito-core-3.12.4.jar;C:\Users\张得帅\.m2\repository\net\bytebuddy\byte-buddy\1.11.13\byte-buddy-1.11.13.jar;C:\Users\张得帅\.m2\repository\net\bytebuddy\byte-buddy-agent\1.11.13\byte-buddy-agent-1.11.13.jar;C:\Users\张得帅\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;C:\Users\张得帅\.m2\repository\com\h2database\h2\1.4.200\h2-1.4.200.jar;C:\Users\张得帅\.m2\repository\commons-dbutils\commons-dbutils\1.7\commons-dbutils-1.7.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\张得帅"/>
+    <property name="user.language" value="zh"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_321\jre"/>
+    <property name="basedir" value="E:\gittest\1.-"/>
+    <property name="file.separator" value="\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\张得帅\AppData\Local\Temp\surefire2377824068674732742\surefirebooter3572885416676086022.jar;C:\\Users\\张得帅\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.7\\org.jacoco.agent-0.8.7-runtime.jar"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_321\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_321\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_321\jre\classes"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_321-b07"/>
+    <property name="user.name" value="张得帅"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_321\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\张得帅\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\张得帅\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2023.2"/>
+    <property name="java.version" value="1.8.0_321"/>
+    <property name="user.dir" value="E:\gittest\1.-"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_321\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\VMware\bin\;E:\python\Scripts\;E:\python\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Java\jdk1.8.0_321\bin;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\IBM\SPSS\Modeler\18.0\ext\bin\spss.TMWBServer\bin;C:\Program Files\IBM\SPSS\Modeler\18.0\MPICH2\bin;C:\Program Files\IBM\SPSS\Modeler\18.0\TABI;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\strawberry\c\bin;C:\strawberry\perl\bin;E:\Git\cmd;C:\Users\张得帅\Desktop\杨轩软件系统开发\工具\apache-maven-3.9.9-bin;C:\Users\张得帅\AppData\Local\Programs\Python\Launcher\;C:\Users\张得帅\AppData\Local\Microsoft\WindowsApps;C:\Users\张得帅\.dotnet\tools;D:\Microsoft VS Code\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Users\张得帅\AppData\Local\Programs\Microsoft VS Code\bin;E:\pycharm\PyCharm 2024.1\bin;;E:\Anaconda3;E:\Anaconda3\Scripts;E:\Anaconda3\Library\bin;C:\Users\张得帅\AppData\Local\GitHubDesktop\bin;C:\Users\张得帅\AppData\Roaming\Programs\Zero Install;D:\PyCharm 2024.1\bin;;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.321-b07"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_321\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="testAllbook_withData" classname="database.FindBookTest" time="0.002">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testAllbook_withData" classname="database.FindBookTest" time="0.002">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookid_notFound" classname="database.FindBookTest" time="0.003">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookid_notFound" classname="database.FindBookTest" time="0.003">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookname_notFound" classname="database.FindBookTest" time="0.001">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookname_notFound" classname="database.FindBookTest" time="0.001">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindauthor_found" classname="database.FindBookTest" time="0.002">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindauthor_found" classname="database.FindBookTest" time="0.002">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookid_found" classname="database.FindBookTest" time="0.001">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookid_found" classname="database.FindBookTest" time="0.001">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindauthor_notFound" classname="database.FindBookTest" time="0.001">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindauthor_notFound" classname="database.FindBookTest" time="0.001">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindcategory_notFound" classname="database.FindBookTest" time="0.002">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindcategory_notFound" classname="database.FindBookTest" time="0.002">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testAllbook_noData" classname="database.FindBookTest" time="0.001">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testAllbook_noData" classname="database.FindBookTest" time="0.001">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookname_found" classname="database.FindBookTest" time="0.002">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindbookname_found" classname="database.FindBookTest" time="0.002">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+  <testcase name="testFindcategory_found" classname="database.FindBookTest" time="0.002">
+    <error message="&#10;The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks&#10;&#10;Mockito&apos;s inline mock maker supports static mocks based on the Instrumentation API.&#10;You can simply enable this mock mode, by placing the &apos;mockito-inline&apos; artifact where you are currently using &apos;mockito-core&apos;.&#10;Note that Mockito&apos;s inline mock maker is not supported on Android." type="org.mockito.exceptions.base.MockitoException"><![CDATA[org.mockito.exceptions.base.MockitoException: 
+
+The used MockMaker SubclassByteBuddyMockMaker does not support the creation of static mocks
+
+Mockito's inline mock maker supports static mocks based on the Instrumentation API.
+You can simply enable this mock mode, by placing the 'mockito-inline' artifact where you are currently using 'mockito-core'.
+Note that Mockito's inline mock maker is not supported on Android.
+	at database.FindBookTest.setup(FindBookTest.java:50)
+]]></error>
+  </testcase>
+  <testcase name="testFindcategory_found" classname="database.FindBookTest" time="0.002">
+    <error type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException
+	at database.FindBookTest.tearDown(FindBookTest.java:65)
+]]></error>
+  </testcase>
+</testsuite>
